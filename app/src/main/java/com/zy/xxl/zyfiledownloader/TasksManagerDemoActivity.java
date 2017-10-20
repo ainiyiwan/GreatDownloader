@@ -65,6 +65,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter = new TaskItemAdapter());
 
 
+        //开启taskManager
         TasksManager.getImpl().onCreate(new WeakReference<>(this));
     }
 
@@ -125,6 +126,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             taskActionBtn.setText(R.string.delete);
         }
 
+        //更新没有下载
         public void updateNotDownloaded(final int status, final long sofar, final long total) {
             if (sofar > 0 && total > 0) {
                 final float percent = sofar
@@ -150,9 +152,9 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             taskActionBtn.setText(R.string.start);
         }
 
+        //更新下载状态
         public void updateDownloading(final int status, final long sofar, final long total) {
-            final float percent = sofar
-                    / (float) total;
+            final float percent = sofar / (float) total;
             taskPb.setMax(100);
             taskPb.setProgress((int) (percent * 100));
 
@@ -197,6 +199,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
         private FileDownloadListener taskDownloadListener = new FileDownloadSampleListener() {
 
+            //获取当前viewHolder
             private TaskItemViewHolder checkCurrentHolder(final BaseDownloadTask task) {
                 final TaskItemViewHolder tag = (TaskItemViewHolder) task.getTag();
                 if (tag.id != task.getId()) {
@@ -206,6 +209,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                 return tag;
             }
 
+            //等待，已经进入下载队列
             @Override
             protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                 super.pending(task, soFarBytes, totalBytes);
@@ -214,11 +218,12 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                     return;
                 }
 
-                tag.updateDownloading(FileDownloadStatus.pending, soFarBytes
-                        , totalBytes);
+                tag.updateDownloading(FileDownloadStatus.pending, soFarBytes, totalBytes);
+                //队列中
                 tag.taskStatusTv.setText(R.string.tasks_manager_demo_status_pending);
             }
 
+            //结束了pending，并且开始当前任务的Runnable
             @Override
             protected void started(BaseDownloadTask task) {
                 super.started(task);
@@ -230,6 +235,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                 tag.taskStatusTv.setText(R.string.tasks_manager_demo_status_started);
             }
 
+            //已经连接上
             @Override
             protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
                 super.connected(task, etag, isContinue, soFarBytes, totalBytes);
@@ -243,6 +249,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                 tag.taskStatusTv.setText(R.string.tasks_manager_demo_status_connected);
             }
 
+            //下载进度回调
             @Override
             protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                 super.progress(task, soFarBytes, totalBytes);
@@ -255,6 +262,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                         , totalBytes);
             }
 
+            //下载出现错误
             @Override
             protected void error(BaseDownloadTask task, Throwable e) {
                 super.error(task, e);
@@ -263,11 +271,12 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                     return;
                 }
 
-                tag.updateNotDownloaded(FileDownloadStatus.error, task.getLargeFileSoFarBytes()
-                        , task.getLargeFileTotalBytes());
+                //更新下载任务 并且从任务栈中移除
+                tag.updateNotDownloaded(FileDownloadStatus.error, task.getLargeFileSoFarBytes(), task.getLargeFileTotalBytes());
                 TasksManager.getImpl().removeTaskForViewHolder(task.getId());
             }
 
+            //	暂停下载
             @Override
             protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                 super.paused(task, soFarBytes, totalBytes);
@@ -276,11 +285,13 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                     return;
                 }
 
+                //暂停的话也移出队列
                 tag.updateNotDownloaded(FileDownloadStatus.paused, soFarBytes, totalBytes);
                 tag.taskStatusTv.setText(R.string.tasks_manager_demo_status_paused);
                 TasksManager.getImpl().removeTaskForViewHolder(task.getId());
             }
 
+            //完成整个下载过程
             @Override
             protected void completed(BaseDownloadTask task) {
                 super.completed(task);
@@ -293,6 +304,8 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                 TasksManager.getImpl().removeTaskForViewHolder(task.getId());
             }
         };
+
+        //下载按钮 三种状态 开始 暂停 删除
         private View.OnClickListener taskActionOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,7 +321,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                     FileDownloader.getImpl().pause(holder.id);
                 } else if (action.equals(v.getResources().getString(R.string.start))) {
                     // to start
-                    // to start
+                    // to start  开始下载
                     final TasksManagerModel model = TasksManager.getImpl().get(holder.position);
                     final BaseDownloadTask task = FileDownloader.getImpl().create(model.getUrl())
                             .setPath(model.getPath())
@@ -355,7 +368,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
             holder.taskActionBtn.setEnabled(true);
 
-
+            // TODO: 2017/10/20 从这开始 
             if (TasksManager.getImpl().isReady()) {
                 final int status = TasksManager.getImpl().getStatus(model.getId(), model.getPath());
                 if (status == FileDownloadStatus.pending || status == FileDownloadStatus.started ||
@@ -428,14 +441,17 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
         private SparseArray<BaseDownloadTask> taskSparseArray = new SparseArray<>();
 
+        //加入任务
         public void addTaskForViewHolder(final BaseDownloadTask task) {
             taskSparseArray.put(task.getId(), task);
         }
 
+        //移除任务
         public void removeTaskForViewHolder(final int id) {
             taskSparseArray.remove(id);
         }
 
+        //更新viewHolder
         public void updateViewHolder(final int id, final TaskItemViewHolder holder) {
             final BaseDownloadTask task = taskSparseArray.get(id);
             if (task == null) {
@@ -445,12 +461,14 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             task.setTag(holder);
         }
 
+        //释放所有任务
         public void releaseTask() {
             taskSparseArray.clear();
         }
 
         private FileDownloadConnectListener listener;
 
+        //注册服务连接
         private void registerServiceConnectionListener(final WeakReference<TasksManagerDemoActivity>
                                                                activityWeakReference) {
             if (listener != null) {
@@ -483,11 +501,14 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             FileDownloader.getImpl().addServiceConnectListener(listener);
         }
 
+        //取消服务连接
         private void unregisterServiceConnectionListener() {
             FileDownloader.getImpl().removeServiceConnectListener(listener);
             listener = null;
         }
 
+
+        //开启task
         public void onCreate(final WeakReference<TasksManagerDemoActivity> activityWeakReference) {
             if (!FileDownloader.getImpl().isServiceConnected()) {
                 FileDownloader.getImpl().bindService();
@@ -495,19 +516,23 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             }
         }
 
+        //取消任务 下载的话这块儿在退出Activity后可以注释掉？
         public void onDestroy() {
             unregisterServiceConnectionListener();
             releaseTask();
         }
 
+        //服务是否连接上 这里存在一个同步的问题 如果viewHolder执行完 这里还是没有ready
         public boolean isReady() {
             return FileDownloader.getImpl().isServiceConnected();
         }
 
+        //通过位置获取下载任务
         public TasksManagerModel get(final int position) {
             return modelList.get(position);
         }
 
+        //通过id获取下载任务
         public TasksManagerModel getById(final int id) {
             for (TasksManagerModel model : modelList) {
                 if (model.getId() == id) {
@@ -521,7 +546,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
         /**
          * @param status Download Status
          * @return has already downloaded
-         * @see FileDownloadStatus
+         * @see FileDownloadStatus  下载完成
          */
         public boolean isDownloaded(final int status) {
             return status == FileDownloadStatus.completed;
@@ -539,14 +564,17 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             return FileDownloader.getImpl().getSoFar(id);
         }
 
+        //获取任务个数
         public int getTaskCounts() {
             return modelList.size();
         }
 
+        //加入任务
         public TasksManagerModel addTask(final String url) {
             return addTask(url, createPath(url));
         }
 
+        //加入任务
         public TasksManagerModel addTask(final String url, final String path) {
             if (TextUtils.isEmpty(url) || TextUtils.isEmpty(path)) {
                 return null;
@@ -565,6 +593,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             return newModel;
         }
 
+        //创造路径
         public String createPath(final String url) {
             if (TextUtils.isEmpty(url)) {
                 return null;
@@ -574,6 +603,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
         }
     }
 
+    // ============================================================================ controller ====
     private static class TasksManagerDBController {
         public final static String TABLE_NAME = "tasksmanger";
         private final SQLiteDatabase db;
@@ -584,7 +614,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             db = openHelper.getWritableDatabase();
         }
 
-        //获取所有下载任务
+        //3 获取所有下载任务
         public List<TasksManagerModel> getAllTasks() {
             final Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
@@ -611,7 +641,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             return list;
         }
 
-        //加入任务
+        //2 加入任务
         public TasksManagerModel addTask(final String url, final String path) {
             if (TextUtils.isEmpty(url) || TextUtils.isEmpty(path)) {
                 return null;
@@ -635,7 +665,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
     // ----------------------- model
     private static class TasksManagerDBOpenHelper extends SQLiteOpenHelper {
-        public final static String DATABASE_NAME = "tasksmanager.db";
+        public final static String DATABASE_NAME = "zy.db";
         public final static int DATABASE_VERSION = 2;
 
         public TasksManagerDBOpenHelper(Context context) {
@@ -643,6 +673,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
         }
 
 
+        //1 建表
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE IF NOT EXISTS "

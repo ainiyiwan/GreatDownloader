@@ -22,7 +22,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.BaseDownloadTask;
 /**
  * The downloading status.
  *
- * @see com.liulishuo.filedownloader.IFileDownloadMessenger
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.IFileDownloadMessenger
  * @see <a href="https://raw.githubusercontent.com/lingochamp/FileDownloader/master/art/filedownloadlistener_callback_flow.png">Callback-Flow</a>
  */
 public class FileDownloadStatus {

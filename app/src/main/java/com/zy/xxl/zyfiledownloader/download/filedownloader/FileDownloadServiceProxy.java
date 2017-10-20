@@ -103,6 +103,7 @@ public class FileDownloadServiceProxy implements IFileDownloadServiceProxy {
         return handler.isIdle();
     }
 
+    //服务是否连接上
     @Override
     public boolean isConnected() {
         return handler.isConnected();

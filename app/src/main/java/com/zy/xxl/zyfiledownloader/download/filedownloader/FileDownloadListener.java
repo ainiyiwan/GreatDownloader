@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 
+import com.zy.xxl.zyfiledownloader.download.filedownloader.message.MessageSnapshot;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadLog;
 
 /**
@@ -61,7 +62,7 @@ public abstract class FileDownloadListener {
      * @param task       The task
      * @param soFarBytes Already downloaded bytes stored in the db
      * @param totalBytes Total bytes stored in the db
-     * @see IFileDownloadMessenger#notifyPending(MessageSnapshot)
+     * @see IFileDownloadMessenger#notifyPending(MessageSnapshot) (MessageSnapshot)
      */
     protected abstract void pending(final BaseDownloadTask task, final int soFarBytes,
                                     final int totalBytes);
@@ -151,7 +152,7 @@ public abstract class FileDownloadListener {
      * @param task       The task
      * @param soFarBytes Number of bytes download so far
      * @param totalBytes Total size of the download in bytes
-     * @see IFileDownloadMessenger#notifyPaused(com.liulishuo.filedownloader.message.MessageSnapshot)
+     * @see IFileDownloadMessenger#notifyPaused(MessageSnapshot) (com.liulishuo.filedownloader.message.MessageSnapshot)
      */
     protected abstract void paused(final BaseDownloadTask task, final int soFarBytes,
                                    final int totalBytes);
