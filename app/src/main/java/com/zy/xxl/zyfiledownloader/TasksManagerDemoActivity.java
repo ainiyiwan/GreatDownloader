@@ -641,6 +641,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             return list;
         }
 
+        // TODO: 2017/10/21 重命名下载文件 
         //2 加入任务
         public TasksManagerModel addTask(final String url, final String path) {
             if (TextUtils.isEmpty(url) || TextUtils.isEmpty(path)) {
@@ -652,7 +653,8 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
             TasksManagerModel model = new TasksManagerModel();
             model.setId(id);
-            model.setName(MyApplication.CONTEXT.getString(R.string.tasks_manager_demo_name, id));
+//            model.setName(MyApplication.CONTEXT.getString(R.string.tasks_manager_demo_name, id));
+            model.setName(url);
             model.setUrl(url);
             model.setPath(path);
 

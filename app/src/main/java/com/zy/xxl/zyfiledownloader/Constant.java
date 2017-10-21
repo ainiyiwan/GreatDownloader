@@ -10,8 +10,6 @@ public interface Constant {
             "http://yinyueshiting.baidu.com/data2/music/239908cd71a27d737fef95b17d18b97c/540728460/540728460.mp3?xcode=0975e9c56e78b228b74cd3784244547c",
             //成都.mp3
             "http://yinyueshiting.baidu.com/data2/music/239908cd71a27d737fef95b17d18b97c/540728460/540728460.mp3?xcode=0975e9c56e78b228539f0e82e788ec87",
-            //爱奇艺
-            "http://yinyueshiting.baidu.com/data2/music/239908cd71a27d737fef95b17d18b97c/540728460/540728460.mp3?xcode=0975e9c56e78b228b74cd3784244547c",
             //微信
             "http://116.117.158.129/f2.market.xiaomi.com/download/AppStore/04275951df2d94fee0a8210a3b51ae624cc34483a/com.tencent.mm.apk"
 
