@@ -47,6 +47,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtils
+        .getDefaultSaveRootPath;
+
 /**
  * Created by Jacksgong on 1/9/16.
  */
@@ -84,9 +87,9 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        TasksManager.getImpl().onDestroy();
-        adapter = null;
-        FileDownloader.getImpl().pauseAll();
+//        TasksManager.getImpl().onDestroy();
+//        adapter = null;
+//        FileDownloader.getImpl().pauseAll();
         super.onDestroy();
     }
 
@@ -237,7 +240,8 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
             //已经连接上
             @Override
-            protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
+            protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int
+                    soFarBytes, int totalBytes) {
                 super.connected(task, etag, isContinue, soFarBytes, totalBytes);
                 final TaskItemViewHolder tag = checkCurrentHolder(task);
                 if (tag == null) {
@@ -272,7 +276,8 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                 }
 
                 //更新下载任务 并且从任务栈中移除
-                tag.updateNotDownloaded(FileDownloadStatus.error, task.getLargeFileSoFarBytes(), task.getLargeFileTotalBytes());
+                tag.updateNotDownloaded(FileDownloadStatus.error, task.getLargeFileSoFarBytes(),
+                        task.getLargeFileTotalBytes());
                 TasksManager.getImpl().removeTaskForViewHolder(task.getId());
             }
 
@@ -321,12 +326,18 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                     FileDownloader.getImpl().pause(holder.id);
                 } else if (action.equals(v.getResources().getString(R.string.start))) {
                     // to start
-                    // to start  开始下载
+                    // to start  开始下载  找到我
                     final TasksManagerModel model = TasksManager.getImpl().get(holder.position);
                     final BaseDownloadTask task = FileDownloader.getImpl().create(model.getUrl())
+                            //https://github.com/lingochamp/FileDownloader/issues/782 重命名问题
                             .setPath(model.getPath())
                             .setCallbackProgressTimes(100)
                             .setListener(taskDownloadListener);
+
+                    String path  = model.getPath();
+                    String name = model.getName();
+                    int id = model.getId();
+                    String url = model.getUrl();
 
                     TasksManager.getImpl()
                             .addTaskForViewHolder(task);
@@ -389,7 +400,8 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                             , TasksManager.getImpl().getTotal(model.getId()));
                 } else {
                     // not start
-                    holder.updateNotDownloaded(status, TasksManager.getImpl().getSoFar(model.getId())
+                    holder.updateNotDownloaded(status, TasksManager.getImpl().getSoFar(model
+                                    .getId())
                             , TasksManager.getImpl().getTotal(model.getId()));
                 }
             } else {
@@ -598,8 +610,10 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(url)) {
                 return null;
             }
+            //找到我
             String test = FileDownloadUtils.getDefaultSaveFilePath(url);
-            return FileDownloadUtils.getDefaultSaveFilePath(url);
+            String test1 = FileDownloadUtils.generateFilePath(getDefaultSaveRootPath(), "呵呵呵.mp3");
+            return FileDownloadUtils.generateFilePath(getDefaultSaveRootPath(), "呵呵呵.mp3");
         }
     }
 
@@ -609,7 +623,8 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
         private final SQLiteDatabase db;
 
         private TasksManagerDBController() {
-            TasksManagerDBOpenHelper openHelper = new TasksManagerDBOpenHelper(MyApplication.CONTEXT);
+            TasksManagerDBOpenHelper openHelper = new TasksManagerDBOpenHelper(MyApplication
+                    .CONTEXT);
 
             db = openHelper.getWritableDatabase();
         }
@@ -648,15 +663,23 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
                 return null;
             }
 
-            // have to use FileDownloadUtils.generateId to associate TasksManagerModel with FileDownloader
+            // have to use FileDownloadUtils.generateId to associate TasksManagerModel with
+            // FileDownloader
             final int id = FileDownloadUtils.generateId(url, path);
 
             TasksManagerModel model = new TasksManagerModel();
             model.setId(id);
 //            model.setName(MyApplication.CONTEXT.getString(R.string.tasks_manager_demo_name, id));
-            model.setName(url);
+            if (url.equals(Constant.BIG_FILE_URLS[0])) {
+                model.setName("成都.mp3");
+            } else if (url.equals(Constant.BIG_FILE_URLS[1])) {
+                model.setName("成都.mp3");
+            } else if (url.equals(Constant.BIG_FILE_URLS[2])) {
+                model.setName("weChat.apk");
+            }
             model.setUrl(url);
             model.setPath(path);
+            String testpath = path;
 
             final boolean succeed = db.insert(TABLE_NAME, null, model.toContentValues()) != -1;
             return succeed ? model : null;
@@ -668,7 +691,7 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
     // ----------------------- model
     private static class TasksManagerDBOpenHelper extends SQLiteOpenHelper {
         public final static String DATABASE_NAME = "zy.db";
-        public final static int DATABASE_VERSION = 2;
+        public final static int DATABASE_VERSION = 7;
 
         public TasksManagerDBOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -697,9 +720,11 @@ public class TasksManagerDemoActivity extends AppCompatActivity {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (oldVersion == 1 && newVersion == 2) {
-                db.delete(TasksManagerDBController.TABLE_NAME, null, null);
-            }
+//            if (oldVersion == 1 && newVersion == 2) {
+            int a = oldVersion;
+            int b = newVersion;
+            db.delete(TasksManagerDBController.TABLE_NAME, null, null);
+//            }
         }
     }
 

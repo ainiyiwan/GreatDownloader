@@ -146,6 +146,7 @@ public class FileDownloadUtils {
         }
     }
 
+    //生成路径 并且用url生成文件名
     public static String getDefaultSaveFilePath(final String url) {
         return generateFilePath(getDefaultSaveRootPath(), generateFileName(url));
     }
@@ -155,7 +156,7 @@ public class FileDownloadUtils {
     }
 
     /**
-     * @see #getTargetFilePath(String, boolean, String)
+     * @see #getTargetFilePath(String, boolean, String)  生成路径 并且自定义文件名
      */
     public static String generateFilePath(String directory, String filename) {
         if (filename == null) {
@@ -542,6 +543,7 @@ public class FileDownloadUtils {
         return contentLength;
     }
 
+    //获取文件名 先获取content 没有再获取文件名
     public static String findFilename(FileDownloadConnection connection, String url) {
         String filename = FileDownloadUtils.parseContentDisposition(connection.
                 getResponseHeaderField("Content-Disposition"));

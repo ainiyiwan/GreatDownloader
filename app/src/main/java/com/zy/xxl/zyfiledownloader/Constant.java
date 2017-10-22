@@ -5,6 +5,14 @@ package com.zy.xxl.zyfiledownloader;
  */
 public interface Constant {
 
+    String[] CHUNKED_TRANSFER_ENCODING_DATA_URLS = {
+            "http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx?0.04400023248109086",
+    };
+
+    String LIULISHUO_APK_URL = "http://imtt.dd.qq.com/16891/0DD0DE99B5D36B51D6636F94B318DC73.apk?fsname=com.mydream.wifi_5.1.8_518.apk&csr=1bbd";
+//    String LIULISHUO_APK_URL = "http://cdn.llsapp.com/android/LLS-v4.0-595-20160908-143200.apk";
+    String LIULISHUO_CONTENT_DISPOSITION_FILENAME = "LLS-v4.0-595-20160908-143200.apk";
+
     String[] BIG_FILE_URLS = {
             //成都.mp3
             "http://yinyueshiting.baidu.com/data2/music/239908cd71a27d737fef95b17d18b97c/540728460/540728460.mp3?xcode=0975e9c56e78b228b74cd3784244547c",

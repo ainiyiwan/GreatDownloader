@@ -16,4 +16,8 @@ public class MainActivity extends AppCompatActivity {
     public void onTaskManagerClick(View view) {
         startActivity(new Intent(this, TasksManagerDemoActivity.class));
     }
+
+    public void onSingleTask(View view) {
+        startActivity(new Intent(this, SingleTaskTestActivity.class));
+    }
 }

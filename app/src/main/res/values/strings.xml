@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ZYFileDownloader</string>
     <string name="task_manager">任务管理器</string>
+    <string name="single_task">单个任务</string>
 
     <string name="start">开始</string>
     <string name="pause">暂停</string>

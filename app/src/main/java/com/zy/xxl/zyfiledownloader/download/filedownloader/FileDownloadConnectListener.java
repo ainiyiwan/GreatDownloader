@@ -24,7 +24,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.event.IDownloadListen
 /**
  * The listener for listening whether the service establishes connection or disconnected.
  *
- * @see com.liulishuo.filedownloader.services.BaseFileServiceUIGuard#releaseConnect(boolean)
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.BaseFileServiceUIGuard#releaseConnect(boolean)
  */
 public abstract class FileDownloadConnectListener extends IDownloadListener {
 
