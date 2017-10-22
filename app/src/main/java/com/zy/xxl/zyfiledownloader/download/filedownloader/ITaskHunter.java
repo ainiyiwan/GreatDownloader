@@ -38,7 +38,7 @@ public interface ITaskHunter extends IDownloadSpeed.Lookup {
 
     /**
      * @return the status.
-     * @see com.liulishuo.filedownloader.model.FileDownloadStatus
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus
      */
     byte getStatus();
 

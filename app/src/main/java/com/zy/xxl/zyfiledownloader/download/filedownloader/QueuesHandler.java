@@ -30,6 +30,7 @@ import java.util.List;
 
 /**
  * The default queue handler.
+ * 队列帮助类
  */
 
 class QueuesHandler implements IQueuesHandler {
@@ -40,6 +41,7 @@ class QueuesHandler implements IQueuesHandler {
         this.mRunningSerialMap = new SparseArray<>();
     }
 
+    //开启并行队列
     @Override
     public boolean startQueueParallel(FileDownloadListener listener) {
         final int attachKey = listener.hashCode();
@@ -58,6 +60,7 @@ class QueuesHandler implements IQueuesHandler {
         return true;
     }
 
+    //开启串行队列
     @Override
     public boolean startQueueSerial(FileDownloadListener listener) {
         final SerialHandlerCallback callback = new SerialHandlerCallback();
@@ -88,6 +91,7 @@ class QueuesHandler implements IQueuesHandler {
         return true;
     }
 
+    //冻结串行队列
     @Override
     public void freezeAllSerialQueues() {
         for (int i = 0; i < mRunningSerialMap.size(); i++) {
@@ -97,6 +101,7 @@ class QueuesHandler implements IQueuesHandler {
         }
     }
 
+    //开启串行队列
     @Override
     public void unFreezeSerialQueues(List<Integer> attachKeyList) {
         for (Integer attachKey : attachKeyList) {
@@ -105,6 +110,7 @@ class QueuesHandler implements IQueuesHandler {
         }
     }
 
+    //获取串行队列的size
     @Override
     public int serialQueueSize() {
         return mRunningSerialMap.size();
@@ -115,6 +121,7 @@ class QueuesHandler implements IQueuesHandler {
         return mRunningSerialMap.get(attachKey) != null;
     }
 
+    //应该是这个集合是否可以开启 如果队列为空 返回true 上面调用类返回false 感觉这种写法多此一举
     private boolean onAssembledTasksToStart(int attachKey, final List<BaseDownloadTask.IRunningTask> list,
                                             final FileDownloadListener listener, boolean isSerial) {
         if (FileDownloadMonitor.isValid()) {
@@ -147,6 +154,7 @@ class QueuesHandler implements IQueuesHandler {
     final static int WHAT_UNFREEZE = 3;
 
 
+
     private class SerialHandlerCallback implements Handler.Callback {
         private Handler mHandler;
         private List<BaseDownloadTask.IRunningTask> mList;
@@ -169,6 +177,7 @@ class QueuesHandler implements IQueuesHandler {
         @Override
         public boolean handleMessage(final Message msg) {
             if (msg.what == WHAT_SERIAL_NEXT) {
+                //如果过arg1 大于队列长度 结束handler
                 if (msg.arg1 >= mList.size()) {
                     synchronized (mRunningSerialMap) {
                         mRunningSerialMap.remove(mList.get(0).getAttachKey());
@@ -245,6 +254,7 @@ class QueuesHandler implements IQueuesHandler {
         }
     }
 
+    //队列结束监听
     private static class SerialFinishListener implements BaseDownloadTask.FinishListener {
         private final WeakReference<SerialHandlerCallback> wSerialHandlerCallback;
 
@@ -254,6 +264,7 @@ class QueuesHandler implements IQueuesHandler {
 
         private int nextIndex;
 
+        //下一个索引值
         public BaseDownloadTask.FinishListener setNextIndex(int index) {
             this.nextIndex = index;
             return this;

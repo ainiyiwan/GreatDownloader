@@ -27,8 +27,8 @@ import java.util.List;
  * <p/>
  * Used for telling the FileDownloader Engine that a task was downloaded by the other ways.
  *
- * @see com.liulishuo.filedownloader.FileDownloader#setTaskCompleted(List)
- * @deprecated No used. {@link com.liulishuo.filedownloader.FileDownloader#setTaskCompleted(String, String, long)}
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.FileDownloader#setTaskCompleted(List)
+ * @deprecated No used. {@link com.zy.xxl.zyfiledownloader.download.filedownloader.FileDownloader#setTaskCompleted(String, String, long)}
  */
 @SuppressWarnings({"WeakerAccess", "deprecation", "DeprecatedIsStillUsed"})
 public class FileDownloadTaskAtom implements Parcelable {

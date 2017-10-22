@@ -30,7 +30,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadLog;
  * {@link #blockComplete} ->{@link #completed}
  *
  * @see FileDownloadLargeFileListener
- * @see FileDownloadNotificationListener
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.notification.FileDownloadNotificationListener
  * @see BaseDownloadTask#setSyncCallback(boolean)
  */
 @SuppressWarnings({"WeakerAccess", "UnusedParameters"})

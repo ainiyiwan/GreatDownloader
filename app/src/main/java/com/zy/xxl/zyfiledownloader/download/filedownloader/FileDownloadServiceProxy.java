@@ -24,6 +24,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadProp
 
 
 /**
+ * FileDownloadService的代理类
  * The proxy used for executing the action from FileDownloader to FileDownloadService.
  *
  * @see FileDownloadServiceSharedTransmit In case of FileDownloadService runs in the main process.
@@ -88,6 +89,7 @@ public class FileDownloadServiceProxy implements IFileDownloadServiceProxy {
         return handler.getTotal(id);
     }
 
+    //获取指定ID的任务状态
     @Override
     public byte getStatus(int id) {
         return handler.getStatus(id);
@@ -109,16 +111,19 @@ public class FileDownloadServiceProxy implements IFileDownloadServiceProxy {
         return handler.isConnected();
     }
 
+    //通过context绑定任务
     @Override
     public void bindStartByContext(Context context) {
         handler.bindStartByContext(context);
     }
 
+    //通过context绑定任务并且 立即运行
     @Override
     public void bindStartByContext(Context context, Runnable connectedRunnable) {
         handler.bindStartByContext(context, connectedRunnable);
     }
 
+    //解绑任务
     @Override
     public void unbindByContext(Context context) {
         handler.unbindByContext(context);
@@ -134,16 +139,19 @@ public class FileDownloadServiceProxy implements IFileDownloadServiceProxy {
         handler.stopForeground(removeNotification);
     }
 
+    //设置最大下载数
     @Override
     public boolean setMaxNetworkThreadCount(int count) {
         return handler.setMaxNetworkThreadCount(count);
     }
 
+    //清除指定ID的任务的数据
     @Override
     public boolean clearTaskData(int id) {
         return handler.clearTaskData(id);
     }
 
+    //清除任务栈所有任务的数据
     @Override
     public void clearAllTaskData() {
         handler.clearAllTaskData();

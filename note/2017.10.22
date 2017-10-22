@@ -1,0 +1,4 @@
+1 FileDownloader（完成）
+2 IQueuesHandler处理事物队列的借口类（完成）
+3 QueuesHandler（完成）
+4 DownloadTask（完成）

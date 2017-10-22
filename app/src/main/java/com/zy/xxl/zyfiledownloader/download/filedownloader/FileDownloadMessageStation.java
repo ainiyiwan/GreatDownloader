@@ -28,6 +28,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * The message station to transfer task events to {@link FileDownloadListener}.
+ * 消息管理中心 可以设置消息发送时间
  */
 @SuppressWarnings("WeakerAccess")
 public class FileDownloadMessageStation {

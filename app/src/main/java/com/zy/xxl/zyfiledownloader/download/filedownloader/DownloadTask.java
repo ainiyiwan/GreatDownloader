@@ -82,17 +82,21 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         mMessageHandler = hunter;
     }
 
+    //设置下载中刷新下载速度的最小间隔
     @Override
     public BaseDownloadTask setMinIntervalUpdateSpeed(int minIntervalUpdateSpeedMs) {
         mHunter.setMinIntervalUpdateSpeed(minIntervalUpdateSpeedMs);
         return this;
     }
 
+    //下载文件的存储绝对路径
     @Override
     public BaseDownloadTask setPath(final String path) {
         return setPath(path, false);
     }
 
+    //如果pathAsDirectory是true,path就是存储下载文件的文件目录(而不是路径)，
+    // 此时默认情况下文件名filename将会默认从response#header中的contentDisposition中获得
     @Override
     public BaseDownloadTask setPath(final String path, final boolean pathAsDirectory) {
         this.mPath = path;
@@ -114,6 +118,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+    //设置监听，可以以相同监听组成队列
     @Override
     public BaseDownloadTask setListener(final FileDownloadListener listener) {
         this.mListener = listener;
@@ -124,23 +129,27 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+    //设置整个下载过程中FileDownloadListener#progress最大回调次数
     @Override
     public BaseDownloadTask setCallbackProgressTimes(int callbackProgressCount) {
         this.mCallbackProgressTimes = callbackProgressCount;
         return this;
     }
 
+    //设置每个FileDownloadListener#progress之间回调间隔(ms)
     @Override
     public BaseDownloadTask setCallbackProgressMinInterval(int minIntervalMillis) {
         this.mCallbackProgressMinIntervalMillis = minIntervalMillis;
         return this;
     }
 
+    //忽略所有的FileDownloadListener#progress的回调
     @Override
     public BaseDownloadTask setCallbackProgressIgnored() {
         return setCallbackProgressTimes(-1);
     }
 
+    //内部不会使用，在回调的时候用户自己使用
     @Override
     public BaseDownloadTask setTag(final Object tag) {
         this.mTag = tag;
@@ -150,6 +159,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+    //用于存储任意的变量方便回调中使用，以key作为索引
     @Override
     public BaseDownloadTask setTag(final int key, final Object tag) {
         if (mKeyedTags == null) {
@@ -159,6 +169,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+    //强制重新下载，将会忽略检测文件是否健在
     @Override
     public BaseDownloadTask setForceReDownload(final boolean isForceReDownload) {
         this.mIsForceReDownload = isForceReDownload;
@@ -171,6 +182,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+    //结束监听，仅包含结束(over(void))的监听
     @Override
     public BaseDownloadTask addFinishListener(final FinishListener finishListener) {
         if (mFinishListenerList == null) {
@@ -183,17 +195,22 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+
     @Override
     public boolean removeFinishListener(final FinishListener finishListener) {
         return mFinishListenerList != null && mFinishListenerList.remove(finishListener);
     }
 
+    //当请求或下载或写文件过程中存在错误时，自动重试次数，默认为0次
     @Override
     public BaseDownloadTask setAutoRetryTimes(int autoRetryTimes) {
         this.mAutoRetryTimes = autoRetryTimes;
         return this;
     }
 
+    //添加自定义的请求头参数，需要注意的是内部为了断点续传，
+    // 在判断断点续传有效时会自动添加上(If-Match与Range参数)，
+    // 请勿重复添加导致400或其他错误
     @Override
     public BaseDownloadTask addHeader(final String name, final String value) {
         checkAndCreateHeader();
@@ -208,6 +225,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+    //删除由自定义添加上去请求参数为{name}的所有键对
     @Override
     public BaseDownloadTask removeAllHeaders(final String name) {
         if (mHeader == null) {
@@ -224,23 +242,28 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return this;
     }
 
+    //如果设为true, 所有FileDownloadListener中的回调都会直接在下载线程中回调而不抛到ui线程, 默认为false
     @Override
     public BaseDownloadTask setSyncCallback(final boolean syncCallback) {
         this.mSyncCallback = syncCallback;
         return this;
     }
 
+    //设置任务是否只允许在Wifi网络环境下进行下载。 默认值 false
     @Override
     public BaseDownloadTask setWifiRequired(boolean isWifiRequired) {
         this.mIsWifiRequired = isWifiRequired;
         return this;
     }
 
+
     @Override
     public int ready() {
         return asInQueueTask().enqueue();
     }
 
+    //申明该任务将会是队列任务中的一个任务，并且转化为InQueueTask，
+    // 之后可以调用InQueueTask#enqueue将该任务入队以便于接下来启动队列任务时，可以将该任务收编到队列中
     @Override
     public InQueueTask asInQueueTask() {
         return new InQueueTaskImpl(this);
@@ -262,12 +285,13 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return true;
     }
 
+    //	判断当前的Task对象是否在引擎中启动过
     @Override
     public boolean isUsing() {
         return mHunter.getStatus() != FileDownloadStatus.INVALID_STATUS;
     }
 
-
+    //当前任务是否正在运行
     @Override
     public boolean isRunning() {
         //noinspection SimplifiableIfStatement
@@ -305,6 +329,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return startTaskUnchecked();
     }
 
+    //加入队列
     private int startTaskUnchecked() {
         if (isUsing()) {
             if (isRunning()) {
@@ -332,6 +357,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
 
     private final Object mPauseLock;
 
+    //暂停下载任务(也可以理解为停止下载，但是在start的时候默认会断点续传)
     @Override
     public boolean pause() {
         synchronized (mPauseLock) {
@@ -397,6 +423,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return mFilename;
     }
 
+    //	获取目标文件的存储路径
     @Override
     public String getTargetFilePath() {
         return FileDownloadUtils.getTargetFilePath(getPath(), isPathAsDirectory(), getFilename());
@@ -407,6 +434,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return mListener;
     }
 
+    //获取已经下载的字节数
     @Override
     public int getSoFarBytes() {
         return getSmallFileSoFarBytes();
@@ -444,31 +472,37 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return mHunter.getTotalBytes();
     }
 
+    //获取任务的下载速度, 下载过程中为实时速度，下载结束状态为平均速度
     @Override
     public int getSpeed() {
         return mHunter.getSpeed();
     }
 
+    //获取当前的状态
     @Override
     public byte getStatus() {
         return mHunter.getStatus();
     }
 
+    //	是否强制重新下载
     @Override
     public boolean isForceReDownload() {
         return this.mIsForceReDownload;
     }
 
+    //	获取下载过程抛出的Throwable
     @Override
     public Throwable getEx() {
         return getErrorCause();
     }
 
+    //
     @Override
     public Throwable getErrorCause() {
         return mHunter.getErrorCause();
     }
 
+    //	判断是否是直接使用了旧文件(检测是有效文件)，没有启动下载
     @Override
     public boolean isReusedOldFile() {
         return mHunter.isReusedOldFile();
@@ -486,6 +520,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
 
 
     /**
+     * 是否成功断点续传
      * @deprecated Use {@link #isResuming()} instead.
      */
     @Override
@@ -493,6 +528,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return isResuming();
     }
 
+    //isResuming
     @Override
     public boolean isResuming() {
         return mHunter.isResuming();
@@ -551,6 +587,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
     // whether it has been added, whether or not it is removed.
     private volatile boolean mIsMarkedAdded2List = false;
 
+    //加入队列
     @Override
     public void markAdded2List() {
         mIsMarkedAdded2List = true;
@@ -628,6 +665,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return getListener() == listener;
     }
 
+    //是否结束
     @Override
     public boolean isOver() {
         return FileDownloadStatus.isOver(getStatus());
@@ -643,6 +681,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         this.mAttachKey = key;
     }
 
+    //设置attackKey为默认key
     @Override
     public void setAttachKeyDefault() {
         final int attachKey;
@@ -659,6 +698,7 @@ public class DownloadTask implements BaseDownloadTask, BaseDownloadTask.IRunning
         return FileDownloadUtils.formatString("%d@%s", getId(), super.toString());
     }
 
+    //队列任务
     private final static class InQueueTaskImpl implements InQueueTask {
         private final DownloadTask mTask;
 

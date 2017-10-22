@@ -29,12 +29,13 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * The model of the downloading task will be used in the filedownloader database.
  *
- * @see com.liulishuo.filedownloader.services.FileDownloadDatabase
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.FileDownloadDatabase
  */
 @SuppressWarnings("WeakerAccess")
 public class FileDownloadModel implements Parcelable {
 
     public static final int TOTAL_VALUE_IN_CHUNKED_RESOURCE = -1;
+    //设置整个下载过程中FileDownloadListener#progress最大回调次数
     public final static int DEFAULT_CALLBACK_PROGRESS_TIMES = 100;
 
     // download id

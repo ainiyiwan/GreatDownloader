@@ -63,6 +63,7 @@ public interface IDownloadSpeed {
         int getSpeed();
 
         /**
+         * 设置下载中刷新下载速度的最小间隔
          * @param minIntervalUpdateSpeed The minimum interval to update the speed, used to adjust the
          *                               refresh frequent.
          */

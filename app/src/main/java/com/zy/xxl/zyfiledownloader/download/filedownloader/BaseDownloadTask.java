@@ -560,19 +560,20 @@ public interface BaseDownloadTask {
     @SuppressWarnings("UnusedParameters")
     interface FinishListener {
         /**
-         * Will be invoked when the {@code task} is over({@link FileDownloadStatus#isOver(int)}).
+         * Will be invoked when the {@code task} is over({@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#isOver(int)}).
          * This method will be invoked in Non-UI-Thread and this thread is controlled by
-         * {@link MessageSnapshotThreadPool}.
+         * {@link com.zy.xxl.zyfiledownloader.download.filedownloader.message.MessageSnapshotThreadPool}.
          *
          * @param task is over, the status would be one of below:
-         *             {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#completed}、{@link FileDownloadStatus#warn}、
-         *             {@link FileDownloadStatus#error}、{@link FileDownloadStatus#paused}.
-         * @see FileDownloadStatus#isOver(int)
+         *             {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#completed}、{@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#warn}、
+         *             {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#error}、{@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#paused}.
+         * @see com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#isOver(int)
          */
         void over(final BaseDownloadTask task);
     }
 
     /**
+     * 正在运行的任务
      * The running task.
      * <p>
      * Used in internal.
@@ -629,6 +630,7 @@ public interface BaseDownloadTask {
         void setAttachKeyDefault();
 
         /**
+         * 任务是否已经在队列中
          * @return {@code true} the task has already added to the downloading list.
          */
         boolean isMarkedAdded2List();

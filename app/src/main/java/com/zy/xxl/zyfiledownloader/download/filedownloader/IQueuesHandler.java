@@ -19,12 +19,14 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 import java.util.List;
 
 /**
- * The interface for handle affairs of queues.
+ * The interface for handle affairs(事物) of queues.
+ * 处理事物的队列
  */
 
 public interface IQueuesHandler {
 
     /**
+     * 并行
      * Start tasks which the same {@code listener} as a queue, and execute theme in parallel.
      *
      * @param listener Used to assemble tasks which is bound by the same {@code listener}
@@ -33,6 +35,7 @@ public interface IQueuesHandler {
     boolean startQueueParallel(FileDownloadListener listener);
 
     /**
+     * 串行
      * Start tasks which the same {@code listener} as a queue, and execute theme one by one.
      *
      * @param listener Used to assemble tasks which is bound by the same {@code listener}

@@ -64,6 +64,7 @@ class FileDownloadTaskLauncher {
     }
 
 
+    //正在运行任务的线程池
     private static class LaunchTaskPool {
 
         private ThreadPoolExecutor mPool;

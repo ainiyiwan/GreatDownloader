@@ -37,10 +37,11 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * 第一个类
  * The basic entrance for FileDownloader.
  *
- * @see com.liulishuo.filedownloader.services.FileDownloadService The service for FileDownloader.
- * @see FileDownloadProperties
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.FileDownloadService The service for FileDownloader.
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadProperties
  */
 @SuppressWarnings("WeakerAccess")
 public class FileDownloader {
@@ -63,6 +64,7 @@ public class FileDownloader {
      * <p/>
      * Please invoke this method on the {@link Application#onCreate()} because of the customize
      * components must be assigned before FileDownloader is running.
+     *
      * <p/>
      * Such as:
      * <p/>
@@ -81,6 +83,7 @@ public class FileDownloader {
      * }
      * @param application the application.
      * @return the customize components maker.
+     * 自定义组件
      */
     public static DownloadMgrInitialParams.InitCustomMaker setupOnApplicationOnCreate(Application application) {
         final Context context = application.getApplicationContext();
@@ -105,6 +108,7 @@ public class FileDownloader {
 
     /**
      * @deprecated please using {@link #setupOnApplicationOnCreate(Application)} instead.
+     * 已经不推荐使用
      */
     public static void init(final Context context,
                             final DownloadMgrInitialParams.InitCustomMaker maker) {
@@ -121,6 +125,7 @@ public class FileDownloader {
         CustomComponentHolder.getImpl().setInitCustomMaker(maker);
     }
 
+    //生成实例 为什么不用单例模式呢？
     private final static class HolderClass {
         private final static FileDownloader INSTANCE = new FileDownloader();
     }
@@ -130,6 +135,9 @@ public class FileDownloader {
     }
 
     /**
+     * 为了避免掉帧，这里是设置了最多每interval毫秒抛一个消息到ui线程(使用Handler)，
+     * 防止由于回调的过于频繁导致ui线程被ddos导致掉帧。
+     * 默认值: 10ms. 如果设置小于0，将会失效，也就是说每个回调都直接抛一个消息到ui线程
      * For avoiding missing screen frames.
      * <p/>
      * This mechanism is used for avoid methods in {@link FileDownloadListener} is invoked too frequent
@@ -152,6 +160,8 @@ public class FileDownloader {
     }
 
     /**
+     * 为了避免掉帧, 如果上面的方法设置的间隔是一个小于0的数，这个packageSize将不会生效。packageSize这个值是为了避免在ui线程中一次处理过多回调，
+     * 结合上面的间隔，就是每个interval毫秒间隔抛一个消息到ui线程，而每个消息在ui线程中处理packageSize个回调。默认值: 5
      * For avoiding missing screen frames.
      * <p/>
      * This mechanism is used for avoid methods in {@link FileDownloadListener} is invoked too frequent
@@ -174,6 +184,8 @@ public class FileDownloader {
     }
 
     /**
+     * 开启 避免掉帧处理。就是将抛消息到ui线程的间隔设为默认值10ms,
+     * 很明显会影响的是回调不会立马通知到监听器(FileDownloadListener)中，默认值是: 最多10ms处理5个回调到监听器中
      * Avoid missing screen frames, this leads to all callbacks in {@link FileDownloadListener} do
      * not be invoked at once when it has already achieved to ensure callbacks don't be too frequent.
      *
@@ -185,6 +197,7 @@ public class FileDownloader {
     }
 
     /**
+     * 关闭 避免掉帧处理。就是将抛消息到ui线程的间隔设置-1(无效值)，这个就是让每个回调都会抛一个消息ui线程中，可能引起掉帧
      * Disable avoiding missing screen frames, let all callbacks in {@link FileDownloadListener}
      * can be invoked at once when it achieve.
      *
@@ -196,6 +209,7 @@ public class FileDownloader {
     }
 
     /**
+     * 是否开启了 避免掉帧处理。默认是开启的
      * @return {@code true} if enabled the function of avoiding missing screen frames.
      * @see #enableAvoidDropFrame()
      * @see #disableAvoidDropFrame()
@@ -207,12 +221,14 @@ public class FileDownloader {
 
     /**
      * Create a download task.
+     * 新建一个下载任务
      */
     public BaseDownloadTask create(final String url) {
         return new DownloadTask(url);
     }
 
     /**
+     * 启动是相同监听器的任务，串行/并行启动
      * Start the download queue by the same listener.
      *
      * @param listener Used to assemble tasks which is bound by the same {@code listener}
@@ -235,6 +251,7 @@ public class FileDownloader {
 
 
     /**
+     * 暂停启动相同监听器的任务
      * Pause the download queue by the same {@code listener}.
      *
      * @param listener the listener.
@@ -253,7 +270,9 @@ public class FileDownloader {
 
     /**
      * Pause all tasks running in FileDownloader.
+     * 暂停所有任务
      */
+    // TODO: 2017/10/22 开始所有任务 可以仿照这个类去做 
     public void pauseAll() {
         FileDownloadTaskLauncher.getImpl().expireAll();
         final BaseDownloadTask.IRunningTask[] downloadList = FileDownloadList.getImpl().copy();
@@ -280,6 +299,7 @@ public class FileDownloader {
 
     /**
      * Pause downloading tasks with the {@code id}.
+     * 	暂停downloadId的任务
      *
      * @param id the {@code id} .
      * @return The size of tasks has been paused.
@@ -300,6 +320,8 @@ public class FileDownloader {
     }
 
     /**
+     * 强制清理ID为downloadId的任务在fileDownloader中的数据
+     *
      * Clear the data with the provided {@code id}.
      * Normally used to deleting the data in filedownloader database, when it is paused or in
      * downloading status. If you want to re-download it clearly.
@@ -341,6 +363,7 @@ public class FileDownloader {
     }
 
     /**
+     * 清空filedownloader数据库中的所有数据
      * Clear all data in the filedownloader database.
      * <p>
      * <strong>Note:</strong> Normally, YOU NO NEED to clearAllTaskData manually, because the
@@ -356,6 +379,7 @@ public class FileDownloader {
     }
 
     /**
+     * 获得下载Id为downloadId的soFarBytes
      * Get downloaded bytes so far by the downloadId.
      */
     public long getSoFar(final int downloadId) {
@@ -368,6 +392,7 @@ public class FileDownloader {
     }
 
     /**
+     * 获得下载Id为downloadId的totalBytes
      * Get the total bytes of the target file for the task with the {code id}.
      */
     public long getTotal(final int id) {
@@ -380,6 +405,7 @@ public class FileDownloader {
     }
 
     /**
+     * 获取不包含已完成状态的下载状态(如果任务已经下载完成，将收到INVALID)
      * @param id The downloadId.
      * @return The downloading status without cover the completed status (if completed you will receive
      * {@link FileDownloadStatus#INVALID_STATUS} ).
@@ -391,6 +417,7 @@ public class FileDownloader {
     }
 
     /**
+     * 获取下载状态
      * @param url  The downloading URL.
      * @param path The downloading file's path.
      * @return The downloading status.
@@ -402,6 +429,7 @@ public class FileDownloader {
     }
 
     /**
+     * 获取下载状态
      * @param id   The downloadId.
      * @param path The target file path.
      * @return the downloading status.
@@ -429,6 +457,7 @@ public class FileDownloader {
     }
 
     /**
+     * 替换监听借口
      * Find the running task by {@code url} and default path, and replace its listener with
      * the new one {@code listener}.
      *
@@ -471,6 +500,7 @@ public class FileDownloader {
     }
 
     /**
+     * 主动启动下载进程(可事先调用该方法(可以不调用)，保证第一次下载的时候没有启动进程的速度消耗)
      * Start and bind the FileDownloader service.
      * <p>
      * <strong>Tips:</strong> The FileDownloader service will start and bind automatically when any task
@@ -518,6 +548,7 @@ public class FileDownloader {
     }
 
     /**
+     * 如果任务栈中没有任务 解绑任务
      * Unbind and stop the downloader service when there is no task running in the FileDownloader.
      *
      * @return {@code true} if unbind and stop the downloader service successfully, {@code false}
@@ -539,6 +570,7 @@ public class FileDownloader {
     }
 
     /**
+     * 是否已经启动并且连接上下载进程(可参考任务管理demo中的使用)
      * @return {@code true} if the downloader service has been started and connected.
      */
     public boolean isServiceConnected() {
@@ -546,6 +578,7 @@ public class FileDownloader {
     }
 
     /**
+     * 添加下载服务连接变化的监听器
      * Add the listener for listening when the status of connection with the downloader service is
      * changed.
      *
@@ -570,6 +603,7 @@ public class FileDownloader {
     }
 
     /**
+     * 设置FileDownloadService为前台模式，保证用户从最近应用列表移除应用以后下载服务不会被杀
      * Start the {@code notification} with the {@code id}. This will let the downloader service
      * change to a foreground service.
      * <p>
@@ -609,6 +643,7 @@ public class FileDownloader {
     }
 
     /**
+     * 用于告诉FileDownloader引擎，以指定Url与Path的任务已经通过其他方式(非FileDownloader)下载完成
      * @param url        The url of the completed task.
      * @param path       The absolute path of the completed task's save file.
      * @param totalBytes The content-length of the completed task, the length of the file in the
@@ -643,7 +678,8 @@ public class FileDownloader {
     }
 
     /**
-     * Recommend used to telling the FileDownloader Engine that a bulk of tasks have already
+     * 用于告诉FileDownloader引擎，指定的一系列的任务都已经通过其他方式(非FileDownloader)下载完成
+     * Recommend used to telling the FileDownloader Engine that a bulk(大量) of tasks have already
      * downloaded by other ways(not by the FileDownloader Engine).
      * <p/>
      * The FileDownloader Engine need to know the status of completed, because if you want to
@@ -668,6 +704,7 @@ public class FileDownloader {
     }
 
     /**
+     * 设置最大并行下载的数目(网络下载线程数), [1,12]
      * Set the maximum count of the network thread, what is the number of simultaneous downloads in
      * FileDownloader.
      *
@@ -730,6 +767,7 @@ public class FileDownloader {
     private final static Object INIT_QUEUES_HANDLER_LOCK = new Object();
     private IQueuesHandler mQueuesHandler;
 
+    //获取队列处理单例
     IQueuesHandler getQueuesHandler() {
         if (mQueuesHandler == null) {
             synchronized (INIT_QUEUES_HANDLER_LOCK) {

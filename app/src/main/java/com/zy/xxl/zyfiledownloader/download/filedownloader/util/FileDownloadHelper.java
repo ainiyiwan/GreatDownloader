@@ -35,6 +35,7 @@ import java.io.IOException;
 /**
  * The helper for cache the {@code APP_CONTEXT} and {@code OK_HTTP_CLIENT} for the main process and
  * the filedownloader process.
+ * 再这个帮助类中保存context供所有类使用
  */
 public class FileDownloadHelper {
 

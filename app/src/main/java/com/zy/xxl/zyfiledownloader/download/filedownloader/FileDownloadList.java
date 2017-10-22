@@ -69,6 +69,7 @@ public class FileDownloadList {
         return size;
     }
 
+    //获取正在运行的指定ID的任务
     public BaseDownloadTask.IRunningTask get(final int id) {
         synchronized (mList) {
             for (BaseDownloadTask.IRunningTask task : mList) {
@@ -100,6 +101,7 @@ public class FileDownloadList {
         return list;
     }
 
+    //获取下载队列中任务为指定ID的任务
     List<BaseDownloadTask.IRunningTask> getDownloadingList(final int id) {
         final List<BaseDownloadTask.IRunningTask> list = new ArrayList<>();
         synchronized (this.mList) {
@@ -118,6 +120,7 @@ public class FileDownloadList {
         return mList.isEmpty() || !mList.contains(download);
     }
 
+    //获取相同监听器的任务集合
     List<BaseDownloadTask.IRunningTask> copy(final FileDownloadListener listener) {
         final List<BaseDownloadTask.IRunningTask> targetList = new ArrayList<>();
         synchronized (mList) {
@@ -131,6 +134,7 @@ public class FileDownloadList {
         }
     }
 
+    //开启一个集合的任务
     List<BaseDownloadTask.IRunningTask> assembleTasksToStart(int attachKey,
                                                              FileDownloadListener listener) {
         final List<BaseDownloadTask.IRunningTask> targetList = new ArrayList<>();
@@ -227,7 +231,8 @@ public class FileDownloadList {
     }
 
     /**
-     * This method generally used for enqueuing the task which will be assembled by a queue.
+     *
+     * This method generally used for enqueuing the task which will be assembled（组装，集合） by a queue.
      *
      * @see BaseDownloadTask.InQueueTask#enqueue()
      */
