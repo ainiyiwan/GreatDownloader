@@ -16,9 +16,11 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader.exception;
 
 /**
+ * 已完成
  * Throwing this exception, when we can't know the size of the download file, and its Transfer-Encoding
- * is not Chunked either.
+ * is not Chunked（分成大块） either.
  * <p/>
+ * @link http://network.51cto.com/art/201509/491335.htm    HTTP 协议中的 Transfer-Encoding
  * When you occur this type exception, the chance of retry will be ignored.
  */
 public class FileDownloadGiveUpRetryException extends RuntimeException {

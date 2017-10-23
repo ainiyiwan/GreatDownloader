@@ -34,7 +34,9 @@ import static com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDown
 
 
 /**
- * Fetch data from the provided connection.
+ * 已完成
+ * 读取数据
+ * Fetch（取来；接来；到达；吸引） data from the provided connection.
  */
 public class FetchDataTask {
 
@@ -213,6 +215,10 @@ public class FetchDataTask {
 
         boolean bufferPersistToDevice;
         try {
+            /**
+             * 刷新并同步
+             * @see FileDownloadOutputStream
+             */
             outputStream.flushAndSync();
             bufferPersistToDevice = true;
         } catch (IOException e) {

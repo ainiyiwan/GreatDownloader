@@ -24,7 +24,9 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 
 
 /**
- * The message snapshot.
+ * 已完成
+ * The message snapshot(快照).
+ * 所谓的消息快照应该是指消息包含哪些信息 这类信息应该在断点续传中也是举足轻重的 各个状态开始的时候都要调用这个 所以它里面应该也保存数据库中的东西
  */
 public abstract class MessageSnapshot implements IMessageSnapshot, Parcelable {
     private final int id;

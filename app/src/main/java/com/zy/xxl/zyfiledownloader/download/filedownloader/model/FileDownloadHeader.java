@@ -20,11 +20,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+import com.zy.xxl.zyfiledownloader.download.filedownloader.connection.FileDownloadConnection;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
+ * 已完成
  * We have already handled Etag internal for guaranteeing tasks resuming from the breakpoint, in
  * other words, if the task has downloaded and got Etag, we will add the 'If-Match' and the 'Range'
  * K-V to its request header automatically.
@@ -36,8 +39,9 @@ public class FileDownloadHeader implements Parcelable {
     /**
      * We have already handled etag, and will add 'If-Match' & 'Range' value if it works.
      *
-     * @see com.liulishuo.filedownloader.download.ConnectTask#addUserRequiredHeader(FileDownloadConnection)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.ConnectTask#addUserRequiredHeader(FileDownloadConnection) (FileDownloadConnection)
      */
+    // TODO: 2017/10/23  'If-Match' & 'Range' 干嘛用的
     public void add(String name, String value) {
         if (name == null) throw new NullPointerException("name == null");
         if (name.isEmpty()) throw new IllegalArgumentException("name is empty");
@@ -61,7 +65,7 @@ public class FileDownloadHeader implements Parcelable {
     /**
      * We have already handled etag, and will add 'If-Match' & 'Range' value if it works.
      *
-     * @see com.liulishuo.filedownloader.download.ConnectTask#addUserRequiredHeader(FileDownloadConnection)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.ConnectTask#addUserRequiredHeader(FileDownloadConnection)
      */
     public void add(String line) {
         String[] parsed = line.split(":");

@@ -37,6 +37,7 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * 已完成
  * 第一个类
  * The basic entrance for FileDownloader.
  *

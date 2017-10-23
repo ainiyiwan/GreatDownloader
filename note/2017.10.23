@@ -1,0 +1,27 @@
+1 DownloadTaskHunter
+2 IMessageSnapshot（完成）
+3 MessageSnapshot（完成）
+4 LargeMessageSnapshot（完成）
+5 SmallMessageSnapshot（完成）
+6 BlockCompleteMessage（完成）
+7 IFlowDirectly（完成）
+8 IFileDownloadMessenger（这个类很重要 对写入状态之类的有什么不懂的 就看这个类）
+9 FileDownloadListener（已完成）
+10 MessageSnapshotTaker（已完成）
+11 DefaultConnectionCountAdapter（已完成）
+12 FileDownloadModel（已完成）
+13 ConnectionModel（已完成）
+14 FileDownloadDatabase（已完成）
+15 DefaultDatabaseImpl（已完成）
+16 DefaultDatabaseOpenHelper（已完成）
+17 NoDatabaseImpl（已完成）
+18 FileDownloadGiveUpRetryException（已完成）
+19 FileDownloadOutputStream（已完成）
+20 FetchDataTask（已完成）
+21 FileDownloadRandomAccessFile（已完成）
+22 FileDownloadConnection（已完成）
+23 FileDownloadUrlConnection（已完成）
+24 RedirectHandler（已完成）
+25 ConnectionProfile（已完成）
+26 FileDownloadHeader（已完成）
+27 ConnectTask（已完成）

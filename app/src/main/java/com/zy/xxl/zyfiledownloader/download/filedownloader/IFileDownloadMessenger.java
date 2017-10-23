@@ -18,10 +18,12 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 
 import com.zy.xxl.zyfiledownloader.download.filedownloader.message.MessageSnapshot;
+import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadModel;
 
 /**
- * @see com.liulishuo.filedownloader.model.FileDownloadStatus
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus
  */
+// TODO: 2017/10/23 整个类的方法 以及它指向的需要阅读的类 估计这个类会延续到最后
 interface IFileDownloadMessenger {
 
     /**
@@ -36,9 +38,9 @@ interface IFileDownloadMessenger {
     /**
      * The task is pending.
      * <p/>
-     * enqueue, and pending, waiting.
+     * enqueue, and pending( 未决定的；行将发生的), waiting.
      *
-     * @see com.liulishuo.filedownloader.services.FileDownloadThreadPool
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.FileDownloadThreadPool
      */
     void notifyPending(MessageSnapshot snapshot);
 
@@ -47,7 +49,7 @@ interface IFileDownloadMessenger {
      * <p/>
      * Finish pending, and start download runnable.
      *
-     * @see DownloadStatusCallback#onStartThread()
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onStartThread()
      */
     void notifyStarted(MessageSnapshot snapshot);
 
@@ -56,7 +58,7 @@ interface IFileDownloadMessenger {
      * <p/>
      * Already connected to the server, and received the Http-response.
      *
-     * @see DownloadStatusCallback#onConnected(boolean, long, String, String)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onConnected(boolean, long, String, String)
      */
     void notifyConnected(MessageSnapshot snapshot);
 
@@ -65,7 +67,7 @@ interface IFileDownloadMessenger {
      * <p/>
      * Fetching datum, and write to local disk.
      *
-     * @see DownloadStatusCallback#onProgress(long)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onProgress(long)
      */
     void notifyProgress(MessageSnapshot snapshot);
 
@@ -74,7 +76,7 @@ interface IFileDownloadMessenger {
      * <p/>
      * Already completed download, and block the current thread to do something, such as unzip,etc.
      *
-     * @see DownloadStatusCallback#onCompletedDirectly()
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onCompletedDirectly()
      */
     void notifyBlockComplete(MessageSnapshot snapshot);
 
@@ -91,8 +93,9 @@ interface IFileDownloadMessenger {
      * <p/>
      * There has already had some same Tasks(Same-URL & Same-SavePath) in Pending-Queue or is
      * running.
+     * 有相同的人物 或者URL 或者保存路径在等待队列 或者已经在运行
      *
-     * @see FileDownloadHelper#inspectAndInflowDownloading(int, FileDownloadModel, IThreadPoolMonitor, boolean)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadHelper#inspectAndInflowDownloading(int, FileDownloadModel, IThreadPoolMonitor, boolean) (int, FileDownloadModel, IThreadPoolMonitor, boolean)
      */
     void notifyWarn(MessageSnapshot snapshot);
 
@@ -101,10 +104,10 @@ interface IFileDownloadMessenger {
      * <p/>
      * Occur a exception, but don't has any chance to retry.
      *
-     * @see DownloadStatusCallback#onErrorDirectly(Exception)
-     * @see com.liulishuo.filedownloader.exception.FileDownloadHttpException
-     * @see com.liulishuo.filedownloader.exception.FileDownloadOutOfSpaceException
-     * @see com.liulishuo.filedownloader.exception.FileDownloadGiveUpRetryException
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onErrorDirectly(Exception)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.exception.FileDownloadHttpException
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.exception.FileDownloadOutOfSpaceException
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.exception.FileDownloadGiveUpRetryException
      */
     void notifyError(MessageSnapshot snapshot);
 
@@ -122,12 +125,13 @@ interface IFileDownloadMessenger {
      * <p/>
      * Achieve complete ceremony.
      *
-     * @see DownloadStatusCallback#onCompletedDirectly()
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onCompletedDirectly()
      */
     void notifyCompleted(MessageSnapshot snapshot);
 
     /**
-     * Handover a message to {@link FileDownloadListener}.
+     * Handover(移交) a message to {@link FileDownloadListener}.
+     * @see FileDownloadListener
      */
     void handoverMessage();
 
@@ -139,7 +143,7 @@ interface IFileDownloadMessenger {
     boolean handoverDirectly();
 
     /**
-     * @param task Re-appointment for this task, when this messenger has already accomplished the
+     * @param task Re-appointment(连任；复职) for this task, when this messenger has already accomplished the
      *             old one.
      */
     void reAppointment(BaseDownloadTask.IRunningTask task, BaseDownloadTask.LifeCycleCallback callback);
@@ -149,12 +153,12 @@ interface IFileDownloadMessenger {
      * 'completed'(status) message.
      *
      * @return {@code true} if the status of the current message is
-     * {@link com.liulishuo.filedownloader.model.FileDownloadStatus#blockComplete}.
+     * {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#blockComplete}.
      */
     boolean isBlockingCompleted();
 
     /**
-     * Discard this messenger.
+     * Discard(抛弃；放弃；丢弃) this messenger.
      * <p>
      * If this messenger is discarded, all messages sent by this messenger or feature messages
      * handled by this messenger will be discard, no longer callback to the target Listener.

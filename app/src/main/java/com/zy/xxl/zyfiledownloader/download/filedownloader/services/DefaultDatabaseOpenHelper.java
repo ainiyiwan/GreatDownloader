@@ -26,6 +26,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadMod
 
 
 /**
+ * 已完成
  * The default opener of the filedownloader database helper.
  */
 class DefaultDatabaseOpenHelper extends SQLiteOpenHelper {

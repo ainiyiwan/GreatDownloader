@@ -23,8 +23,9 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import junit.framework.Assert;
 
 /**
+ * 已完成
  * The interface of block complete message.
- *
+ * 已经下载完成的 的会写入这个方法
  * @see SmallMessageSnapshot
  * @see LargeMessageSnapshot
  */

@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 已完成
+ * 连接网络
  * The connection used for connecting to the network.
  */
 
@@ -32,19 +34,21 @@ public interface FileDownloadConnection {
     int RESPONSE_CODE_FROM_OFFSET = 1;
 
     /**
+     * 添加请求参数
      * Sets the header named {@code name} to {@code value}.
      * <p>
-     * The capacity of this method is similar to the {@link URLConnection#addRequestProperty(String, String)}
+     * The capacity（能力；容量；资格，地位；生产力） of this method is similar to the {@link URLConnection#addRequestProperty(String, String)}
      */
     void addHeader(String name, String value);
 
     /**
+     * 断点下载
      * If we find the file has been downloaded several bytes, we will try to resume from the
      * breakpoint from {@code offset} length.
      *
      * @param etag   the etag is stored by the past downloaded.
      * @param offset the offset length has already been downloaded.
-     * @return {@code true} if adding resume offset was dispatched, so we can't handle that by internal.
+     * @return {@code true} if adding resume offset was dispatched（派遣, 发送）, so we can't handle that by internal.
      */
     @SuppressWarnings("UnusedParameters")
     boolean dispatchAddResumeOffset(String etag, long offset);
@@ -59,6 +63,7 @@ public interface FileDownloadConnection {
     InputStream getInputStream() throws IOException;
 
     /**
+     * 获取请求头
      * Returns an unmodifiable Map of general request header fields for this connection. The Map
      * keys are Strings that represent the request-header field names. Each Map value is a
      * unmodifiable List of Strings that represents the corresponding field values.
@@ -70,6 +75,7 @@ public interface FileDownloadConnection {
     Map<String, List<String>> getRequestHeaderFields();
 
     /**
+     * 获取返回头
      * Returns an unmodifiable Map of the header fields. The Map keys are Strings that represent
      * the response-header field names. Each Map value is an unmodifiable List of Strings that
      * represents the corresponding field values.
@@ -81,6 +87,7 @@ public interface FileDownloadConnection {
     Map<String, List<String>> getResponseHeaderFields();
 
     /**
+     * 返回头
      * Returns the value of the named header field, which would be the response-header field.
      * <p>
      * If called on a connection that sets the same header multiple times

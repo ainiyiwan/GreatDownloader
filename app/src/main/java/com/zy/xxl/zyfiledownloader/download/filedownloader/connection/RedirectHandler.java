@@ -29,14 +29,18 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * 已完成
  * Handle redirect case.
  */
 public class RedirectHandler {
 
+    /**
+     * 最大重定向次数
+     */
     private final static int MAX_REDIRECT_TIMES = 10;
 
     /**
-     * The target resource resides temporarily under a different URI and the user agent MUST NOT
+     * The target resource resides temporarily（ 临时地，临时） under a different URI and the user agent MUST NOT
      * change the request method if it performs an automatic redirection to that URI.
      */
     private final static int HTTP_TEMPORARY_REDIRECT = 307;
@@ -93,6 +97,12 @@ public class RedirectHandler {
         return redirectConnection;
     }
 
+    /**
+     * 是否重定向
+     * 这类状态码代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。
+     * @param code
+     * @return
+     */
     private static boolean isRedirect(int code) {
         return code == HttpURLConnection.HTTP_MOVED_PERM
                 || code == HttpURLConnection.HTTP_MOVED_TEMP
@@ -102,6 +112,13 @@ public class RedirectHandler {
                 || code == HTTP_PERMANENT_REDIRECT;
     }
 
+    /**
+     * 为请求添加头部
+     * @param requestHeaderFields
+     * @param newUrl
+     * @return
+     * @throws IOException
+     */
     private static FileDownloadConnection buildRedirectConnection(Map<String, List<String>> requestHeaderFields,
                                                                   String newUrl) throws IOException {
         FileDownloadConnection redirectConnection = CustomComponentHolder.getImpl().

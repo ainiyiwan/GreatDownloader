@@ -27,8 +27,11 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import java.io.File;
 
 /**
+ * 已完成
  * The factory for taking message snapshots.
+ * 消息快照的照相机 应该是往里面写数据的
  */
+// TODO: 2017/10/23 关键是要看这个类被那个类引用 并且何时写入数据库 
 public class MessageSnapshotTaker {
 
     public static MessageSnapshot take(byte status, FileDownloadModel model) {
@@ -76,7 +79,7 @@ public class MessageSnapshotTaker {
             return new SmallMessageSnapshot.ErrorMessageSnapshot(id, (int) sofar, error);
         }
     }
-
+    
     public static MessageSnapshot catchPause(BaseDownloadTask task) {
         if (task.isLargeFile()) {
             return new LargeMessageSnapshot.PausedSnapshot(task.getId(),

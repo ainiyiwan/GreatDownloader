@@ -34,8 +34,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 已完成
+ * 默认数据库 关于方法有不懂的看接口注释
  * For storing and updating the {@link FileDownloadModel} to the filedownloader database, and also
- * maintain the database when FileDownloader-Process is launching automatically.
+ * maintain（ 维持；继续；维修；主张；供养） the database when FileDownloader-Process is launching automatically.
  */
 class DefaultDatabaseImpl implements FileDownloadDatabase {
 

@@ -28,6 +28,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 /**
  * Params in this class is used in the downloading manager, and would be used for initialize the
  * download manager in the process the downloader service settled on.
+ * 下载初始化组件的管理类
  */
 public class DownloadMgrInitialParams {
 
@@ -78,7 +79,10 @@ public class DownloadMgrInitialParams {
         }
     }
 
-
+    /**
+     * 文件写入器
+     * @return
+     */
     public FileDownloadHelper.OutputStreamCreator createOutputStreamCreator() {
         if (mMaker == null) {
             return createDefaultOutputStreamCreator();
@@ -96,6 +100,10 @@ public class DownloadMgrInitialParams {
         }
     }
 
+    /**
+     * 生成连接器
+     * @return
+     */
     public FileDownloadHelper.ConnectionCreator createConnectionCreator() {
         if (mMaker == null) {
             return createDefaultConnectionCreator();
@@ -114,6 +122,11 @@ public class DownloadMgrInitialParams {
         }
     }
 
+    /**
+     * 这个方法的详细作用看这里
+     * @see FileDownloadHelper.ConnectionCountAdapter
+     * @return
+     */
     public FileDownloadHelper.ConnectionCountAdapter createConnectionCountAdapter() {
         if (mMaker == null) {
             return createDefaultConnectionCountAdapter();
@@ -131,6 +144,10 @@ public class DownloadMgrInitialParams {
         }
     }
 
+    /**
+     * Id生成器
+     * @return
+     */
     public FileDownloadHelper.IdGenerator createIdGenerator() {
         if (mMaker == null) {
             return createDefaultIdGenerator();
@@ -149,14 +166,23 @@ public class DownloadMgrInitialParams {
         }
     }
 
+    /**
+     * 默认ID生成器
+     * @return
+     */
     private FileDownloadHelper.IdGenerator createDefaultIdGenerator() {
         return new DefaultIdGenerator();
     }
 
+    /**
+     * 获取默认网络下载数量
+     * @return
+     */
     private int getDefaultMaxNetworkThreadCount() {
         return FileDownloadProperties.getImpl().DOWNLOAD_MAX_NETWORK_THREAD_COUNT;
     }
 
+    //创建默认数据库
     private FileDownloadDatabase createDefaultDatabase() {
         return new DefaultDatabaseImpl();
     }
@@ -165,10 +191,19 @@ public class DownloadMgrInitialParams {
         return new FileDownloadRandomAccessFile.Creator();
     }
 
+    /**
+     * 创建默认连接器
+     * @return
+     */
     private FileDownloadHelper.ConnectionCreator createDefaultConnectionCreator() {
         return new FileDownloadUrlConnection.Creator();
     }
 
+    /**
+     * 数量适配器
+     * @see DefaultConnectionCountAdapter
+     * @return
+     */
     private FileDownloadHelper.ConnectionCountAdapter createDefaultConnectionCountAdapter() {
         return new DefaultConnectionCountAdapter();
     }
@@ -204,12 +239,13 @@ public class DownloadMgrInitialParams {
         }
 
         /**
+         * 定制database组件
          * customize the database component.
          * <p>
          * If you don't customize the data component, we use the result of
          * {@link #createDefaultDatabase()} as the default one.
          *
-         * @param maker The database is used for storing the {@link FileDownloadModel}.
+         * @param maker The database is used for storing the {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadModel}.
          *              <p>
          *              The data stored in the database is only used for task resumes from the
          *              breakpoint.
@@ -246,6 +282,7 @@ public class DownloadMgrInitialParams {
         }
 
         /**
+         * 自定义文件写入器
          * Customize the output stream component.
          * <p>
          * If you don't customize the output stream component, we use the result of
@@ -271,6 +308,7 @@ public class DownloadMgrInitialParams {
         }
 
         /**
+         * 定制化的网络连接组件，用于下载时建立网络连接
          * Customize the connection component.
          * <p>
          * If you don't customize the connection component, we use the result of

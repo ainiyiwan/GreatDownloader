@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 /**
  * The download task hunter.
+ * 任务猎人
  */
 
 public class DownloadTaskHunter implements ITaskHunter, ITaskHunter.IStarter, ITaskHunter.IMessageHandler,

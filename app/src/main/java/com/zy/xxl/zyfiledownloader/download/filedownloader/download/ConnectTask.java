@@ -32,7 +32,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * The connect task which used for connect to the backend.
+ * 已完成
+ * The connect task which used for connect to the backend（后端）.
  */
 public class ConnectTask {
 
@@ -78,6 +79,10 @@ public class ConnectTask {
         return connection;
     }
 
+    /**
+     * 添加头部
+     * @param connection
+     */
     void addUserRequiredHeader(FileDownloadConnection connection) {
         final HashMap<String, List<String>> additionHeaders;
         if (header != null) {
@@ -106,6 +111,7 @@ public class ConnectTask {
             }
         }
     }
+
 
     void addRangeHeader(FileDownloadConnection connection) {
         if (connection.dispatchAddResumeOffset(etag, profile.startOffset)) {

@@ -23,6 +23,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadMod
 import java.util.List;
 
 /**
+ *已完成
  * The filedownloader database, what is used for storing the {@link FileDownloadModel}.
  * <p/>
  * The data stored in the database is only used for task resumes from the breakpoint.
@@ -32,7 +33,7 @@ import java.util.List;
  * since that data is no longer available for resumption of its task pass.
  *
  * @see DefaultDatabaseImpl
- * @see FileDownloadUtils#isBreakpointAvailable(int, FileDownloadModel)
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtils#isBreakpointAvailable(int, FileDownloadModel)
  */
 @SuppressWarnings("UnusedParameters")
 public interface FileDownloadDatabase {
@@ -111,12 +112,12 @@ public interface FileDownloadDatabase {
 
 
     /**
-     * Update when the old one is overdue.
+     * Update when the old one is overdue（过期的；迟到的；未兑的）.
      */
     void updateOldEtagOverdue(int id, String newEtag, long sofar, long total, int connectionCount);
 
     /**
-     * Update the data because of the download status alternative to {@link FileDownloadStatus#connected}.
+     * Update the data because of the download status alternative（供选择的；选择性的；交替的） to {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#connected}.
      *
      * @param id       the download id.
      * @param total    the new total bytes.
@@ -127,14 +128,14 @@ public interface FileDownloadDatabase {
 
     /**
      * Update the sofar bytes with the status {@code progress}, so don't forget to store the
-     * {@link FileDownloadStatus#progress} too.
+     * {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#progress} too.
      *
      * @param sofarBytes the current sofar bytes.
      */
     void updateProgress(int id, long sofarBytes);
 
     /**
-     * Update the data because of the download status alternative to {@link FileDownloadStatus#error}.
+     * Update the data because of the download status alternative to {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#error}.
      *
      * @param id        the download id.
      * @param throwable the new exception.
@@ -143,7 +144,7 @@ public interface FileDownloadDatabase {
     void updateError(int id, Throwable throwable, long sofar);
 
     /**
-     * Update the data because of the download status alternative to {@link FileDownloadStatus#retry}.
+     * Update the data because of the download status alternative to {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#retry}.
      *
      * @param id        the download id.
      * @param throwable the new exception.
@@ -151,8 +152,8 @@ public interface FileDownloadDatabase {
     void updateRetry(int id, Throwable throwable);
 
     /**
-     * Update the data because of the download status alternative to {@link FileDownloadStatus#completed}.
-     * The latest version will remove model from DB.
+     * Update the data because of the download status alternative to {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#completed}.
+     * The latest version will remove model from DB. 完成后从数据库中删除
      *
      * @param id    the download id.
      * @param total the new total bytes.
@@ -160,7 +161,7 @@ public interface FileDownloadDatabase {
     void updateCompleted(int id, final long total);
 
     /**
-     * Update the data because of the download status alternative to {@link FileDownloadStatus#paused}.
+     * Update the data because of the download status alternative to {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#paused}.
      *
      * @param id    the download id.
      * @param sofar the new so far bytes.
@@ -168,18 +169,18 @@ public interface FileDownloadDatabase {
     void updatePause(int id, final long sofar);
 
     /**
-     * Update the data because of the download status alternative to {@link FileDownloadStatus#pending}.
+     * Update the data because of the download status alternative to {@link com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus#pending}.
      *
      * @param id the download id.
      */
     void updatePending(int id);
 
     /**
-     * Get the maintainer for the database, this maintainer will be used when the database is initializing.
+     * Get the maintainer（ 维修工；保持器） for the database, this maintainer will be used when the database is initializing.
      * <p>
      * The maintainer will return all data on the database.
      * <p>
-     * Demo: {@link com.liulishuo.filedownloader.services.DefaultDatabaseImpl.Maintainer}
+     * Demo: {@link DefaultDatabaseImpl.Maintainer}
      *
      * @return the maintainer for maintain the database.
      */
@@ -211,7 +212,7 @@ public interface FileDownloadDatabase {
 
         /**
          * invoke this method when the {@link FileDownloadModel#id} is changed because of the
-         * different {@link FileDownloadHelper.IdGenerator}, which generate the new id for the task.
+         * different {@link com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadHelper.IdGenerator}, which generate the new id for the task.
          * <p>
          * tips: you need to update the filedownloader-table and the connection-table.
          *

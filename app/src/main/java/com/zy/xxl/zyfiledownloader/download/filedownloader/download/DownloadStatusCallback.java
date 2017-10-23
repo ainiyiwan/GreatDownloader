@@ -47,6 +47,7 @@ import static com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDown
 
 
 /**
+ * 下载状态回调
  * handle all events sync to DB/filesystem and callback to user.
  */
 public class DownloadStatusCallback implements Handler.Callback {

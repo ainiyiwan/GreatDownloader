@@ -20,6 +20,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader.download;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtils;
 
 /**
+ * 已完成
  * The connection profile for {@link ConnectTask}.
  */
 

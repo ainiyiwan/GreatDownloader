@@ -29,6 +29,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
+ * 已完成
  * The download task.
  */
 

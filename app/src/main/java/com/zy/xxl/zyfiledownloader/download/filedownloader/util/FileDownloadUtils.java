@@ -47,16 +47,21 @@ import static com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDown
 
 
 /**
+ * 伟大的工具类
  * The utils for FileDownloader.
  */
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class FileDownloadUtils {
 
+    /**
+     * 64KB
+     */
     private static int MIN_PROGRESS_STEP = 65536;
     private static long MIN_PROGRESS_TIME = 2000;
 
     /**
-     * @param minProgressStep The minimum bytes interval in per step to sync to the file and the
+     *
+     * @param minProgressStep The minimum bytes interval（间隔；间距；幕间休息） in per step to sync to the file and the
      *                        database.
      *                        <p>
      *                        Used for adjudging whether is time to sync the downloaded so far bytes
@@ -67,7 +72,7 @@ public class FileDownloadUtils {
      *                        <p/>
      *                        Default 65536, which follow the value in
      *                        com.android.providers.downloads.Constants.
-     * @see com.liulishuo.filedownloader.download.DownloadStatusCallback#onProgress(long)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onProgress(long)
      * @see #setMinProgressTime(long)
      */
     public static void setMinProgressStep(int minProgressStep) throws IllegalAccessException {
@@ -83,6 +88,7 @@ public class FileDownloadUtils {
     }
 
     /**
+     * 最小的写入数据库的时间
      * @param minProgressTime The minimum millisecond interval in per time to sync to the file and
      *                        the database.
      *                        <p>
@@ -94,7 +100,7 @@ public class FileDownloadUtils {
      *                        <p/>
      *                        Default 2000, which follow the value in
      *                        com.android.providers.downloads.Constants.
-     * @see com.liulishuo.filedownloader.download.DownloadStatusCallback#onProgress(long)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#onProgress(long)
      * @see #setMinProgressStep(int)
      */
     public static void setMinProgressTime(long minProgressTime) throws IllegalAccessException {
@@ -109,10 +115,18 @@ public class FileDownloadUtils {
         }
     }
 
+    /**
+     * 获取最小的更新下载量 也就是下载这么多了 再去更新
+     * @return
+     */
     public static int getMinProgressStep() {
         return MIN_PROGRESS_STEP;
     }
 
+    /**
+     * 获取最小的更新时间 默认2000ms
+     * @return
+     */
     public static long getMinProgressTime() {
         return MIN_PROGRESS_TIME;
     }
@@ -343,6 +357,12 @@ public class FileDownloadUtils {
         return freeSpaceBytes;
     }
 
+    /**
+     * 格式化字符串
+     * @param msg
+     * @param args
+     * @return
+     */
     public static String formatString(final String msg, Object... args) {
         return String.format(Locale.ENGLISH, msg, args);
     }
@@ -489,6 +509,11 @@ public class FileDownloadUtils {
         return perm == PackageManager.PERMISSION_GRANTED;
     }
 
+    /**
+     * 转化ContentLength
+     * @param s
+     * @return
+     */
     public static long convertContentLengthString(String s) {
         if (s == null) return -1;
         try {
@@ -498,6 +523,12 @@ public class FileDownloadUtils {
         }
     }
 
+    /**
+     * 获取Etag
+     * @param id
+     * @param connection
+     * @return
+     */
     public static String findEtag(final int id, FileDownloadConnection connection) {
         if (connection == null) {
             throw new RuntimeException("connection is null when findEtag");
@@ -512,6 +543,12 @@ public class FileDownloadUtils {
         return newEtag;
     }
 
+    /**
+     * 获取ContentLength
+     * @param id
+     * @param connection
+     * @return
+     */
     public static long findContentLength(final int id, FileDownloadConnection connection) {
         long contentLength = FileDownloadUtils.convertContentLengthString(connection.getResponseHeaderField("Content-Length"));
         final String transferEncoding = connection.getResponseHeaderField("Transfer-Encoding");
@@ -555,6 +592,12 @@ public class FileDownloadUtils {
         return filename;
     }
 
+    /**
+     * 生成文件读取器
+     * @param path
+     * @return
+     * @throws IOException
+     */
     public static FileDownloadOutputStream createOutputStream(final String path) throws IOException {
 
         if (TextUtils.isEmpty(path)) {
@@ -706,6 +749,8 @@ public class FileDownloadUtils {
             }
         }
     }
+
+
 
     public static boolean isNeedSync(long bytesDelta, long timestampDelta){
         return bytesDelta > FileDownloadUtils.getMinProgressStep() &&

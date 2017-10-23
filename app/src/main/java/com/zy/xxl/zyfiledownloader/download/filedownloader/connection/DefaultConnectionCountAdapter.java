@@ -20,7 +20,9 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader.connection;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadHelper;
 
 /**
+ * 已完成
  * The default connection count adapter.
+ * 下载数量的适配器
  */
 
 public class DefaultConnectionCountAdapter implements FileDownloadHelper.ConnectionCountAdapter {
@@ -34,6 +36,14 @@ public class DefaultConnectionCountAdapter implements FileDownloadHelper.Connect
     // 4 connection: [50MB, 100MB)
     private final static long FOUR_CONNECTION_UPPER_LIMIT = 100 * 1024 * 1024; // 100MB
 
+    /**
+     * 判断就应该由小到大
+     * @param downloadId  the download id.
+     * @param url         the task url.
+     * @param path        the task path.
+     * @param totalLength the total length of the file.
+     * @return
+     */
     @Override
     public int determineConnectionCount(int downloadId, String url, String path, long totalLength) {
         if (totalLength < ONE_CONNECTION_UPPER_LIMIT) {

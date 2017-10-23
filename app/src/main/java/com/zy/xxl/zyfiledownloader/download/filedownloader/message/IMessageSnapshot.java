@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader.message;
 
 /**
+ * 已完成
  * The snapshot interface.
  */
 interface IMessageSnapshot {
@@ -27,7 +28,7 @@ interface IMessageSnapshot {
 
     /**
      * @return The current downloading status.
-     * @see com.liulishuo.filedownloader.model.FileDownloadStatus
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus
      */
     byte getStatus();
 
@@ -44,6 +45,7 @@ interface IMessageSnapshot {
     /**
      * @return {@code true} if the downloading is resuming from the breakpoint, otherwise the
      * downloading is from the beginning.
+     * 是否是断点下载
      */
     boolean isResuming();
 

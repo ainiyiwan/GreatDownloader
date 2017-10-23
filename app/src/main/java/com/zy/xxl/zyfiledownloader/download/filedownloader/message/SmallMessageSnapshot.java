@@ -22,8 +22,9 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadSta
 
 
 /**
+ * 已完成
  * A message snapshot for a small file(the length is less than 2G).
- *
+ *smallMessage快照
  * @see LargeMessageSnapshot
  * @see BlockCompleteMessage
  */

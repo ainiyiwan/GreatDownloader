@@ -40,7 +40,7 @@ import java.util.List;
  *
  * @see FileDownloadThreadPool
  * @see DownloadLaunchRunnable
- * @see DownloadRunnable
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadRunnable
  */
 class FileDownloadManager implements IThreadPoolMonitor {
     private final FileDownloadDatabase mDatabase;

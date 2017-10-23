@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
+ * 已完成
+ * 支持断点下载的文件写入器
  * The FileDownloadOutputStream implemented using {@link RandomAccessFile}.
  */
 

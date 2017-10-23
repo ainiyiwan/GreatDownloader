@@ -62,10 +62,22 @@ public class CustomComponentHolder {
         }
     }
 
+    /**
+     * 联网组件
+     * @param url
+     * @return
+     * @throws IOException
+     */
     public FileDownloadConnection createConnection(String url) throws IOException {
         return getConnectionCreator().create(url);
     }
 
+    /**
+     * 写数据
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public FileDownloadOutputStream createOutputStream(File file) throws IOException {
         return getOutputStreamCreator().create(file);
     }
@@ -99,6 +111,10 @@ public class CustomComponentHolder {
         return getDownloadMgrInitialParams().getMaxNetworkThreadCount();
     }
 
+    /**
+     * 是否支持断点下载
+     * @return
+     */
     public boolean isSupportSeek() {
         return getOutputStreamCreator().supportSeek();
     }
@@ -118,6 +134,10 @@ public class CustomComponentHolder {
         return connectionCountAdapter;
     }
 
+    /**
+     * 获取连接器
+     * @return
+     */
     private FileDownloadHelper.ConnectionCreator getConnectionCreator() {
         if (connectionCreator != null) return connectionCreator;
 
@@ -129,6 +149,10 @@ public class CustomComponentHolder {
         return connectionCreator;
     }
 
+    /**
+     * 获取文件写入器
+     * @return
+     */
     private FileDownloadHelper.OutputStreamCreator getOutputStreamCreator() {
         if (outputStreamCreator != null) return outputStreamCreator;
 

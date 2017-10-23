@@ -17,8 +17,10 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader.message;
 
 /**
+ * 已完成
  * If the snapshot implement this interface, it will be flowed directly, it means that it would be
  * callback to the message station synchronize, not through the keep-flow-thread-pool.
+ * 干啥的 只知道 如果继承这个 说明Callback调用这个message的时候是异步的
  */
 public interface IFlowDirectly {
 }

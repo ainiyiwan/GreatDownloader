@@ -27,6 +27,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * 已完成
+ * 向数据库写数据用的类 需要序列化
  * The model of the downloading task will be used in the filedownloader database.
  *
  * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.FileDownloadDatabase
@@ -34,6 +36,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @SuppressWarnings("WeakerAccess")
 public class FileDownloadModel implements Parcelable {
 
+    //Transfer-Encoding 为chunked时的 ContentLength
     public static final int TOTAL_VALUE_IN_CHUNKED_RESOURCE = -1;
     //设置整个下载过程中FileDownloadListener#progress最大回调次数
     public final static int DEFAULT_CALLBACK_PROGRESS_TIMES = 100;
@@ -115,9 +118,9 @@ public class FileDownloadModel implements Parcelable {
     }
 
     /**
-     * Get the path user set from {@link BaseDownloadTask#setPath(String)}
+     * Get the path user set from {@link com.zy.xxl.zyfiledownloader.download.filedownloader.BaseDownloadTask#setPath(String)}
      *
-     * @return the path user set from {@link BaseDownloadTask#setPath(String)}
+     * @return the path user set from {@link com.zy.xxl.zyfiledownloader.download.filedownloader.BaseDownloadTask#setPath(String)}
      * @see #getTargetFilePath()
      */
     public String getPath() {
@@ -127,10 +130,10 @@ public class FileDownloadModel implements Parcelable {
     /**
      * Get the finally target file path is used for store the download file.
      * <p/>
-     * This path is composited with {@link #path}、{@link #pathAsDirectory}、{@link #filename}.
+     * This path is composited( 复合的（原形是composite）；混合的) with {@link #path}、{@link #pathAsDirectory}、{@link #filename}.
      * <p/>
      * Why {@link #getPath()} may be not equal to getTargetFilePath()? this case only occurred
-     * when the {@link #isPathAsDirectory()} is {@code true}, on this scenario the {@link #getPath()}
+     * when the {@link #isPathAsDirectory()} is {@code true}, on this scenario( 方案) the {@link #getPath()}
      * is directory, and the getTargetFilePath() is 'directory + "/" + filename'.
      *
      * @return the finally target file path.

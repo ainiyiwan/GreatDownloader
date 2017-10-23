@@ -22,7 +22,10 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadSta
 
 
 /**
+ * 已完成
  * A message snapshot for large file(the length is more than or equal to 2G).
+ * 大消息
+ * 每一个状态都有自己的消息快照 应该会写入不同的状态
  *
  * @see SmallMessageSnapshot
  * @see BlockCompleteMessage

@@ -29,6 +29,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
+ * 已完成
  * The default queue handler.
  * 队列帮助类
  */

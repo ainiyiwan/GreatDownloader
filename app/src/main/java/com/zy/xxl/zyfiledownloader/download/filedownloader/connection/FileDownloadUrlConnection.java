@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 已完成
+ * 传入定制化的网络连接组件，用于下载时建立网络连接
  * The FileDownloadConnection implemented using {@link URLConnection}.
  */
 
@@ -153,11 +155,11 @@ public class FileDownloadUrlConnection implements FileDownloadConnection {
         }
 
         /**
-         * Sets the read timeout to a specified timeout, in milliseconds. A non-zero value specifies
+         * Sets the read timeout to a specified timeout, in milliseconds（毫秒）. A non-zero value specifies
          * the timeout when reading from Input stream when a connection is established to a resource.
          * If the timeout expires before there is data available for read, a
-         * java.net.SocketTimeoutException is raised. A timeout of zero is interpreted as an
-         * infinite timeout.
+         * java.net.SocketTimeoutException is raised. A timeout of zero is interpreted（理解；解释） as an
+         * infinite（无限的，无穷的；无数的；极大的） timeout.
          * <p>
          * This {@code readTimeout} will be applied through {@link URLConnection#setReadTimeout(int)}
          *

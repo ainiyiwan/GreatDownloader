@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 已完成
  * The no database implementation, this implementation no use database anymore, it just store the
  * data on the cache, which means when the process is killed or re-create everything would be gone
  * including all breakpoint data, and some mistake rescue will be can't be achieve.

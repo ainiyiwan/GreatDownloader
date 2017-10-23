@@ -23,6 +23,8 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import java.util.List;
 
 /**
+ * 已完成
+ * 保存多线程下载？
  * The connection model used for record each connections on multiple connections case.
  */
 

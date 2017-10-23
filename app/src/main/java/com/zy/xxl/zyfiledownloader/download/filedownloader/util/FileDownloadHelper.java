@@ -37,6 +37,7 @@ import java.io.IOException;
  * the filedownloader process.
  * 再这个帮助类中保存context供所有类使用
  */
+// TODO: 2017/10/23 看引用类 
 public class FileDownloadHelper {
 
     @SuppressLint("StaticFieldLeak")
@@ -53,7 +54,7 @@ public class FileDownloadHelper {
     @SuppressWarnings("UnusedParameters")
     public interface IdGenerator {
         /**
-         * Invoke this method when the data is restoring from the database.
+         * Invoke this method when the data is restoring（恢复；修复；归还） from the database.
          *
          * @param oldId           the old download id which is generated through the different.
          * @param url             the url path.
@@ -101,13 +102,14 @@ public class FileDownloadHelper {
          * Before invoke this method to determine how many connection will be used to downloading this task,
          * there are several conditions must be confirmed:
          * <p>
-         * 1. the connection is support multiple connection(SUPPORT"Partial Content(206)" AND NOT Chunked)
-         * 2. the current {@link FileDownloadOutputStream} support seek(The default one({@link FileDownloadRandomAccessFile} is support)
+         * 1. the connection is support multiple connection(SUPPORT"Partial Content(206)" AND NOT Chunked（分成大块）)
+         * 2. the current {@link FileDownloadOutputStream} support seek(The default one({@link com.zy.xxl.zyfiledownloader.download.filedownloader.stream.FileDownloadRandomAccessFile} is support)
          * 3. this is a new task NOT resume from breakpoint( If the task resume from breakpoint
          * the connection count would be using
          * the one you determined when the task
          * first created ).
          * <p/>
+         * 只有在任务开始之前设置下载数才有效
          * The best strategy is refer to how much speed of each connection for the ip:port not file size.
          *
          * @param downloadId  the download id.
@@ -132,8 +134,9 @@ public class FileDownloadHelper {
          *
          * @return Nullable, Customize {@link FileDownloadDatabase} which will be used for storing
          * downloading model.
-         * @see com.liulishuo.filedownloader.services.DefaultDatabaseImpl
+         * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.DefaultDatabaseImpl
          */
+        // TODO: 2017/10/23 下载完成会从数据库中删除 那么问题来了 下次进入 如何判断下载完成
         FileDownloadDatabase customMake();
     }
 
@@ -151,7 +154,7 @@ public class FileDownloadHelper {
          * @throws FileNotFoundException if the file exists but is a directory
          *                               rather than a regular file, does not exist but cannot
          *                               be created, or cannot be opened for any other reason
-         * @see FileDownloadRandomAccessFile.Creator
+         * @see com.zy.xxl.zyfiledownloader.download.filedownloader.stream.FileDownloadRandomAccessFile.Creator
          */
         FileDownloadOutputStream create(File file) throws IOException;
 
@@ -160,11 +163,12 @@ public class FileDownloadHelper {
          * {@link #create(File)} support {@link FileDownloadOutputStream#seek(long)} function.
          * If the {@link FileDownloadOutputStream} is created through {@link #create(File)} doesn't
          * support {@link FileDownloadOutputStream#seek(long)}, please return {@code false}, in
-         * order to let the internal mechanism can predict this situation, and handle it smoothly.
+         * order to let the internal mechanism（机制；原理，途径；进程；机械装置；技巧） can predict this situation, and handle it smoothly.
          */
         boolean supportSeek();
     }
 
+    // TODO: 2017/10/23 明天从这里开始 
     public interface ConnectionCreator {
         /**
          * The connection creator is used for creating {@link FileDownloadConnection} component which

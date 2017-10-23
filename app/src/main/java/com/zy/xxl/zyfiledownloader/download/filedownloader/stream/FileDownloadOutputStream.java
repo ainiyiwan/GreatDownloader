@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.io.SyncFailedException;
 
 /**
+ * 已完成
  * The output stream used to write the file for download.
  *
  * @see FileDownloadRandomAccessFile
@@ -31,7 +32,7 @@ import java.io.SyncFailedException;
 public interface FileDownloadOutputStream {
 
     /**
-     * Writes <code>len</code> bytes from the specified byte array
+     * Writes <code>len</code> bytes from the specified（规定的；详细说明的） byte array
      * starting at offset <code>off</code> to this file.
      *
      * @param b   the data.
@@ -47,7 +48,7 @@ public interface FileDownloadOutputStream {
      * <p>
      * This method must ensure all data whatever on buffers of VM or buffers of system for this
      * output stream must persist on the physical media, otherwise the breakpoint will not be
-     * integrity.
+     * integrity（完整；正直；诚实；廉正）.
      *
      * @throws SyncFailedException Thrown when the buffers cannot be flushed,
      *                             or because the system cannot guarantee that all the
@@ -81,7 +82,7 @@ public interface FileDownloadOutputStream {
      *                                <code>0</code> or if an I/O error occurs.
      * @throws IllegalAccessException if in this output stream doesn't support this function.
      *                                You can return {@code false} in
-     *                                {@link FileDownloadHelper.OutputStreamCreator#supportSeek()}
+     *                                {@link com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadHelper.OutputStreamCreator#supportSeek()}
      *                                let the internal mechanism can predict this situation, and
      *                                handle it smoothly.
      * @see java.io.RandomAccessFile#seek(long)
@@ -93,7 +94,7 @@ public interface FileDownloadOutputStream {
      * Sets the length of this file.
      * <p>
      * <p> If the present length of the file as returned by the <code>length</code> method is
-     * greater than the <code>newLength</code> argument then the file will be truncated.  In this
+     * greater than the <code>newLength</code> argument then the file will be truncated（缩短了的；被删节的；切去顶端的）.  In this
      * case, if the file offset as returned by the <code>getFilePointer</code> method is greater
      * than <code>newLength</code> then after this method returns the offset will be equal to
      * <code>newLength</code>.

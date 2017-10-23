@@ -19,6 +19,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 import java.util.List;
 
 /**
+ * 已完成
  * The interface for handle affairs(事物) of queues.
  * 处理事物的队列
  */
