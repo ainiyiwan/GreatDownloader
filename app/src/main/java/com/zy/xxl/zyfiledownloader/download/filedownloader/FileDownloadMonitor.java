@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 /**
+ * 已完成
  * The FileDownloader global monitor, monitor the begin、over for all tasks.
  *
  * @see BaseDownloadTask.LifeCycleCallback#onBegin()
@@ -45,6 +46,7 @@ public class FileDownloadMonitor {
 
 
     /**
+     * 监听所有任务变化的监听器
      * The interface used to monitor all tasks's status change in the FileDownloader.
      * <p/>
      * All method in this interface will be invoked synchronous, recommend don't to hold the thread

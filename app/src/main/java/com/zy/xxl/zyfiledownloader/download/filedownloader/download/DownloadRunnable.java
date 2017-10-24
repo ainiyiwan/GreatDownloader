@@ -29,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.SocketException;
 
 /**
+ * 已完成
  * The single download runnable used for establish one connection and fetch data from it.
  */
 public class DownloadRunnable implements Runnable {
@@ -60,6 +61,10 @@ public class DownloadRunnable implements Runnable {
         if (fetchDataTask != null) fetchDataTask.pause();
     }
 
+
+    /**
+     * discard（抛弃；放弃；丢弃）
+     */
     public void discard() {
         pause();
     }

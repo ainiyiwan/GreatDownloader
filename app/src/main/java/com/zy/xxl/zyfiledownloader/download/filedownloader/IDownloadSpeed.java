@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 /**
+ * 已完成
  * The interface for the downloading speed.
  */
 

@@ -60,7 +60,7 @@ public class FileDownloadUtils {
     private static long MIN_PROGRESS_TIME = 2000;
 
     /**
-     *
+     *  设置回调写入数据库的 minimum bytes interval in per step
      * @param minProgressStep The minimum bytes interval（间隔；间距；幕间休息） in per step to sync to the file and the
      *                        database.
      *                        <p>
@@ -344,6 +344,11 @@ public class FileDownloadUtils {
         return namesAndValues;
     }
 
+    /**
+     * 获取磁盘空闲空间
+     * @param path
+     * @return
+     */
     public static long getFreeSpaceBytes(final String path) {
         long freeSpaceBytes;
         final StatFs statFs = new StatFs(path);

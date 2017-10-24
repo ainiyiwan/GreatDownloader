@@ -20,6 +20,7 @@ import android.os.IBinder;
 
 
 /**
+ * 已完成
  * The handler for {@link FileDownloadService}.
  *
  * @see FileDownloadManager
@@ -27,9 +28,9 @@ import android.os.IBinder;
 @SuppressWarnings("UnusedParameters")
 interface IFileDownloadServiceHandler {
     /**
-     * Will used to handling the onConnected in {@link FileDownloadServiceSharedConnection}.
+     * Will used to handling the onConnected in {@link com.zy.xxl.zyfiledownloader.download.filedownloader.services.FDServiceSharedHandler.FileDownloadServiceSharedConnection}.
      * <p/>
-     * Called by the system every time a client explicitly starts the service by calling
+     * Called by the system every time a client explicitly（明确地；明白地） starts the service by calling
      * {@link android.content.Context#startService}.
      */
     void onStartCommand(Intent intent, int flags, int startId);
@@ -44,7 +45,7 @@ interface IFileDownloadServiceHandler {
     /**
      * Called by the system to notify a Service that it is no longer used and is being removed.
      *
-     * @see FileDownloadServiceSharedConnection
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.FDServiceSharedHandler.FileDownloadServiceSharedConnection
      * @see FDServiceSeparateHandler
      */
     void onDestroy();

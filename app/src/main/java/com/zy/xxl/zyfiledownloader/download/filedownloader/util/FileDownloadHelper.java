@@ -33,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
+ * 已完成
  * The helper for cache the {@code APP_CONTEXT} and {@code OK_HTTP_CLIENT} for the main process and
  * the filedownloader process.
  * 再这个帮助类中保存context供所有类使用
@@ -168,7 +169,6 @@ public class FileDownloadHelper {
         boolean supportSeek();
     }
 
-    // TODO: 2017/10/23 明天从这里开始 
     public interface ConnectionCreator {
         /**
          * The connection creator is used for creating {@link FileDownloadConnection} component which
@@ -189,7 +189,7 @@ public class FileDownloadHelper {
      * @param forceReDownload whether the task is force to re-download ignore whether the file has
      *                        been exist or not.
      * @param flowDirectly    {@code true} if flow the message if need directly without throw to the
-     *                        message-queue.
+     *                        message-queue. 直接发送消息而不用经过进入消息队列
      * @return whether the task with {@code id} has been downloaded.
      */
     public static boolean inspectAndInflowDownloaded(int id, String path, boolean forceReDownload,
@@ -214,7 +214,7 @@ public class FileDownloadHelper {
      * @param id           the {@code id} used for filter out which task would be notified the
      *                     'warn' message if need.
      * @param model        the target model will be checked for judging whether it is downloading.
-     * @param monitor      the monitor for download-thread.
+     * @param monitor      the monitor（监视器；监听器；监控器；显示屏；班长） for download-thread.
      * @param flowDirectly {@code true} if flow the message if need directly without throw to the
      *                     message-queue.
      * @return whether the {@code model} is downloading.
@@ -242,6 +242,7 @@ public class FileDownloadHelper {
      * @param monitor        the monitor for download-thread.
      * @return whether the task with {@code id} is refused to start, because of there is an another
      * running task with the same {@code tempFilePath}.
+     * 检查是否任务冲突
      */
     public static boolean inspectAndInflowConflictPath(int id, long sofar,
                                                        String tempFilePath, String targetFilePath,

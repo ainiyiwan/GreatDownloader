@@ -20,6 +20,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.message.MessageSnapshot;
 
 /**
+ * 已完成
  * The downloading task hunter.
  */
 
@@ -126,6 +127,7 @@ public interface ITaskHunter extends IDownloadSpeed.Lookup {
         boolean updateKeepAhead(final MessageSnapshot snapshot);
 
         /**
+         * keepFlow 的意思应该是保持队列
          * Try to dispatch the {@code snapshot} with the keep right flow policy.
          *
          * @param snapshot the received message snapshot.

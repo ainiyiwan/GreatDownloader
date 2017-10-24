@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.concurrent.Executor;
 
 /**
+ * 已完成
  * Implementing actions for event pool.
  */
 public class DownloadEventPoolImpl implements IDownloadEventPool {

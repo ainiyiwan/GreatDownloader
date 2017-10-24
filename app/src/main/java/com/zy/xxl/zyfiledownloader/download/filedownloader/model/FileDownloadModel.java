@@ -72,7 +72,7 @@ public class FileDownloadModel implements Parcelable {
     private String errMsg;
     public final static String ERR_MSG = "errMsg";
 
-    // header
+    // header 头部？
     private String eTag;
     public final static String ETAG = "etag";
 

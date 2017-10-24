@@ -18,8 +18,10 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader.event;
 
 
 /**
+ * 已完成
  * Used to drive the FileDownload Service connection event.
  */
+// TODO: 2017/10/24 ServiceConnectionEvent
 public class DownloadServiceConnectChangedEvent extends IDownloadEvent {
     public final static String ID = "event.service.connect.changed";
 

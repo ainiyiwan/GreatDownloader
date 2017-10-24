@@ -23,8 +23,10 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
+ * 已完成
+ * 线程池为singleExecutor
  * For guaranteeing only one-thread-pool for one-task, the task will be identified by its ID, make
- * sure the same task will be invoked in FIFO.
+ * sure the same task will be invoked in FIFO.先进先出
  */
 public class MessageSnapshotThreadPool {
 

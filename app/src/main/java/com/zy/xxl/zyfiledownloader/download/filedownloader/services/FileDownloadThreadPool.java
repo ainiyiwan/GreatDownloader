@@ -28,7 +28,8 @@ import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * The thread pool for driving the downloading runnable, which real access the network.
+ * 已完成
+ * The thread pool for driving the downloading runnable, which real access（进入；使用权；通路） the network.
  */
 class FileDownloadThreadPool {
 
@@ -44,6 +45,11 @@ class FileDownloadThreadPool {
         mMaxThreadCount = maxNetworkThreadCount;
     }
 
+    /**
+     * 设置最大并行下载的数目(网络下载线程数), [1,12]
+     * @param count
+     * @return
+     */
     public synchronized boolean setMaxNetworkThreadCount(int count) {
         if (exactSize() > 0) {
             FileDownloadLog.w(this, "Can't change the max network thread count, because the " +
@@ -63,6 +69,9 @@ class FileDownloadThreadPool {
         mThreadPool = FileDownloadExecutors.newDefaultThreadPool(validCount, THREAD_PREFIX);
 
         if (taskQueue.size() > 0) {
+            /**
+             * discard ( 抛弃；放弃；丢弃)
+             */
             FileDownloadLog.w(this, "recreate the network thread pool and discard %d tasks",
                     taskQueue.size());
         }
@@ -71,6 +80,12 @@ class FileDownloadThreadPool {
         return true;
     }
 
+
+    /**
+     * 执行
+     * execute (实行；执行；处死)
+     * @param launchRunnable
+     */
     public void execute(DownloadLaunchRunnable launchRunnable) {
         launchRunnable.pending();
         synchronized (this) {
@@ -78,6 +93,9 @@ class FileDownloadThreadPool {
         }
         mThreadPool.execute(launchRunnable);
 
+        /**
+         * threshold (. 入口；门槛；开始；极限；临界值)
+         */
         final int CHECK_THRESHOLD_VALUE = 600;
         if (mIgnoreCheckTimes >= CHECK_THRESHOLD_VALUE) {
             filterOutNoExist();
@@ -87,6 +105,10 @@ class FileDownloadThreadPool {
         }
     }
 
+    /**
+     * 取消并且移除该线程
+     * @param id
+     */
     public void cancel(final int id) {
         filterOutNoExist();
         synchronized (this) {
@@ -107,6 +129,7 @@ class FileDownloadThreadPool {
 
     private int mIgnoreCheckTimes = 0;
 
+
     private synchronized void filterOutNoExist() {
         SparseArray<DownloadLaunchRunnable> correctedRunnablePool = new SparseArray<>();
         final int size = runnablePool.size();
@@ -125,6 +148,12 @@ class FileDownloadThreadPool {
         return runnable != null && runnable.isAlive();
     }
 
+    /**
+     * 找到相同缓存路径下的任务
+     * @param tempFilePath
+     * @param excludeId
+     * @return
+     */
     public int findRunningTaskIdBySameTempPath(String tempFilePath, int excludeId) {
         if (null == tempFilePath) {
             return 0;
@@ -151,11 +180,19 @@ class FileDownloadThreadPool {
         return 0;
     }
 
+    /**
+     * 获取线程池当前的大小
+     * @return
+     */
     public synchronized int exactSize() {
         filterOutNoExist();
         return runnablePool.size();
     }
 
+    /**
+     * 获取正在运行的下载ID
+     * @return
+     */
     public synchronized List<Integer> getAllExactRunningDownloadIds() {
         filterOutNoExist();
 

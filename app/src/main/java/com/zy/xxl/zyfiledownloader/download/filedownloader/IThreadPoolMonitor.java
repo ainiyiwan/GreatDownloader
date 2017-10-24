@@ -20,6 +20,8 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadModel;
 
 /**
+ * 已完成
+ * 下载线程监听器接口
  * The FileDownload thread monitor interface.
  */
 

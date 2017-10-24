@@ -17,9 +17,11 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader.message;
 
 /**
+ * 已完成
  * The internal message snapshot station.
  * <p>
  * Making message snapshots keep flowing in order.
+ * 让消息按顺序发送
  */
 public class MessageSnapshotFlow {
 

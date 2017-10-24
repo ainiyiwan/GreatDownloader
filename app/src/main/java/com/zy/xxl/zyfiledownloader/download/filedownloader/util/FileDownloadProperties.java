@@ -283,6 +283,12 @@ public class FileDownloadProperties {
         }
     }
 
+    /**
+     * 获取有效的线程数
+     * Valid(有效的；有根据的；合法的；正当的)
+     * @param requireCount
+     * @return
+     */
     public static int getValidNetworkThreadCount(int requireCount) {
         int MAX_VALID_NETWORK_THREAD_COUNT = 12;
         int MIN_VALID_NETWORK_THREAD_COUNT = 1;

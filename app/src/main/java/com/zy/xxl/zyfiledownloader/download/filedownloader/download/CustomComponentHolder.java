@@ -119,6 +119,14 @@ public class CustomComponentHolder {
         return getOutputStreamCreator().supportSeek();
     }
 
+    /**
+     * 同时下载数 下载前设置有效
+     * @param downloadId
+     * @param url
+     * @param path
+     * @param totalLength
+     * @return
+     */
     public int determineConnectionCount(int downloadId, String url, String path, long totalLength) {
         return getConnectionCountAdapter().determineConnectionCount(downloadId, url, path, totalLength);
     }

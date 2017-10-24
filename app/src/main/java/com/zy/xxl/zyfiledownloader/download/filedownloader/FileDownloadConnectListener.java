@@ -22,7 +22,8 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.event.IDownloadEvent;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.event.IDownloadListener;
 
 /**
- * The listener for listening whether the service establishes connection or disconnected.
+ * 已完成
+ * The listener for listening whether the service establishes（建立） connection or disconnected.
  *
  * @see com.zy.xxl.zyfiledownloader.download.filedownloader.services.BaseFileServiceUIGuard#releaseConnect(boolean)
  */

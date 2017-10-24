@@ -47,9 +47,11 @@ import static com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDown
 
 
 /**
+ * 已完成
  * 下载状态回调
  * handle all events sync to DB/filesystem and callback to user.
  */
+// TODO: 2017/10/24 所有关于下载过程中的回调 以及temp的处理都在这里
 public class DownloadStatusCallback implements Handler.Callback {
 
     private final FileDownloadModel model;
@@ -60,6 +62,9 @@ public class DownloadStatusCallback implements Handler.Callback {
 
     private static final int CALLBACK_SAFE_MIN_INTERVAL_BYTES = 1;//byte
     private static final int CALLBACK_SAFE_MIN_INTERVAL_MILLIS = 5;//ms
+    /**
+     * 没有任何下载进度回调
+     */
     private static final int NO_ANY_PROGRESS_CALLBACK = -1;
 
     private final int callbackProgressMinInterval;
@@ -88,6 +93,9 @@ public class DownloadStatusCallback implements Handler.Callback {
     private volatile boolean handlingMessage = false;
     private volatile Thread parkThread;
 
+    /**
+     * 丢弃所有message
+     */
     void discardAllMessage() {
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
@@ -100,6 +108,7 @@ public class DownloadStatusCallback implements Handler.Callback {
             parkThread = null;
         }
     }
+
 
     public void onPending() {
         model.setStatus(FileDownloadStatus.pending);
@@ -120,7 +129,7 @@ public class DownloadStatusCallback implements Handler.Callback {
         final String oldEtag = model.getETag();
         if (oldEtag != null && !oldEtag.equals(etag)) throw
                 new IllegalArgumentException(FileDownloadUtils.formatString("callback " +
-                                "onConnected must with precondition succeed, but the etag is changes(%s != %s)",
+                                "onConnected must with precondition（前提；先决条件） succeed, but the etag（头部） is changes(%s != %s)",
                         etag, oldEtag));
 
         // direct
@@ -202,6 +211,10 @@ public class DownloadStatusCallback implements Handler.Callback {
             "already dead, what is occurred because of there are several reason can " +
             "final this flow on different thread.";
 
+    /**
+     * 发送消息
+     * @param message
+     */
     private synchronized void sendMessage(Message message) {
 
         if (!handlerThread.isAlive()) {
@@ -225,6 +238,12 @@ public class DownloadStatusCallback implements Handler.Callback {
         }
     }
 
+    /**
+     * 计算最小的回调字节间隔 Interval（间隔；间距；幕间休息）
+     * @param contentLength
+     * @param callbackProgressMaxCount
+     * @return
+     */
     private static long calculateCallbackMinIntervalBytes(final long contentLength,
                                                           final long callbackProgressMaxCount) {
         if (callbackProgressMaxCount <= 0) {
@@ -237,6 +256,11 @@ public class DownloadStatusCallback implements Handler.Callback {
         }
     }
 
+    /**
+     * 异常过滤 filtrate（过滤）
+     * @param ex
+     * @return
+     */
     private Exception exFiltrate(Exception ex) {
         final String tempPath = model.getTempFilePath();
         /**
@@ -274,6 +298,10 @@ public class DownloadStatusCallback implements Handler.Callback {
         return ex;
     }
 
+    /**
+     * 处理数据库满了的异常
+     * @param sqLiteFullException
+     */
     private void handleSQLiteFullException(final SQLiteFullException sqLiteFullException) {
         final int id = model.getId();
         if (FileDownloadLog.NEED_LOG) {
@@ -289,6 +317,10 @@ public class DownloadStatusCallback implements Handler.Callback {
         database.removeConnections(id);
     }
 
+    /**
+     * 重命名temp文件
+     * @throws IOException
+     */
     private void renameTempFile() throws IOException {
         final String tempPath = model.getTempFilePath();
         final String targetPath = model.getTargetFilePath();
@@ -329,6 +361,7 @@ public class DownloadStatusCallback implements Handler.Callback {
         }
     }
 
+
     @Override
     public boolean handleMessage(Message msg) {
         handlingMessage = true;
@@ -354,6 +387,11 @@ public class DownloadStatusCallback implements Handler.Callback {
 
     private volatile boolean needSetProcess;
 
+    /**
+     * 处理progress状态
+     * @param now
+     * @param isNeedCallbackToUser
+     */
     private void handleProgress(final long now,
                                 final boolean isNeedCallbackToUser) {
         if (model.getSoFar() == model.getTotal()) {
@@ -373,6 +411,10 @@ public class DownloadStatusCallback implements Handler.Callback {
         }
     }
 
+    /**
+     * 处理完成状态
+     * @throws IOException
+     */
     private void handleCompleted() throws IOException {
         renameTempFile();
 
@@ -388,6 +430,10 @@ public class DownloadStatusCallback implements Handler.Callback {
         }
     }
 
+    /**
+     * 完成前被干扰
+     * @return
+     */
     private boolean interceptBeforeCompleted() {
         if (model.isChunked()) {
             model.setTotal(model.getSoFar());
@@ -401,6 +447,11 @@ public class DownloadStatusCallback implements Handler.Callback {
         return false;
     }
 
+    /**
+     * 处理retry状态
+     * @param exception
+     * @param remainRetryTimes
+     */
     private void handleRetry(final Exception exception, final int remainRetryTimes) {
         Exception processEx = exFiltrate(exception);
         processParams.setException(processEx);
@@ -420,6 +471,10 @@ public class DownloadStatusCallback implements Handler.Callback {
         onStatusChanged(FileDownloadStatus.paused);
     }
 
+    /**
+     * 处理错误状态
+     * @param exception
+     */
     private void handleError(Exception exception) {
         Exception errProcessEx = exFiltrate(exception);
 
@@ -447,6 +502,11 @@ public class DownloadStatusCallback implements Handler.Callback {
 
     private boolean isFirstCallback = true;
 
+    /**
+     * 是否需要回调给用户
+     * @param now
+     * @return
+     */
     private boolean isNeedCallbackToUser(final long now) {
         if (isFirstCallback) {
             isFirstCallback = false;
@@ -460,8 +520,12 @@ public class DownloadStatusCallback implements Handler.Callback {
                 && (callbackTimeDelta >= callbackProgressMinInterval);
     }
 
+    /**
+     * 处理状态改变
+     * @param status
+     */
     private void onStatusChanged(final byte status) {
-        // In current situation, it maybe invoke this method simultaneously between #onPause() and
+        // In current situation, it maybe invoke this method simultaneously（同时地） between #onPause() and
         // others.
         if (status == FileDownloadStatus.paused) {
             if (FileDownloadLog.NEED_LOG) {
@@ -476,7 +540,7 @@ public class DownloadStatusCallback implements Handler.Callback {
                  *
                  * High concurrent cause.
                  */
-                FileDownloadLog.d(this, "High concurrent cause, Already paused and we don't " +
+                FileDownloadLog.d(this, "High concurrent（并发的；一致的；同时发生的） cause, Already paused and we don't " +
                         "need to call-back to Task in here, %d", model.getId());
             }
             return;

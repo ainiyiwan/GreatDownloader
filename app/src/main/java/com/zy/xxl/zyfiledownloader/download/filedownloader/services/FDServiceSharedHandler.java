@@ -27,6 +27,8 @@ import com.zy.xxl.zyfiledownloader.i.IFileDownloadIPCService;
 import java.lang.ref.WeakReference;
 
 /**
+ * 已完成
+ * 和主线程同属一个进程
  * For handling the case of the FileDownloadService runs in shared the main process.
  */
 public class FDServiceSharedHandler extends IFileDownloadIPCService.Stub

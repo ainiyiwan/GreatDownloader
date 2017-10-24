@@ -18,7 +18,9 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader.exception;
 
 
 /**
- * Throw this exception, If you have set {@code true} to {@link BaseDownloadTask#setWifiRequired(boolean)}
+ * 已完成
+ * Wifi异常
+ * Throw this exception, If you have set {@code true} to {@link com.zy.xxl.zyfiledownloader.download.filedownloader.BaseDownloadTask#setWifiRequired(boolean)}
  * when starting downloading with the network type isn't wifi or in downloading state the network type
  * change to non-Wifi type.
  */

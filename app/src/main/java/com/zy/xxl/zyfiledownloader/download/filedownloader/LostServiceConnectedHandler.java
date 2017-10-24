@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 已完成
+ * 任务正在下载的时候失去下载服务
  * The handler for handing the case of the connect with the downloader service is lost when tasks is
  * running.
  */
@@ -34,6 +36,9 @@ public class LostServiceConnectedHandler extends FileDownloadConnectListener imp
 
     private final ArrayList<BaseDownloadTask.IRunningTask> mWaitingList = new ArrayList<>();
 
+    /**
+     * 连接服务
+     */
     @Override
     public void connected() {
         final IQueuesHandler queueHandler = FileDownloader.getImpl().getQueuesHandler();
@@ -70,9 +75,15 @@ public class LostServiceConnectedHandler extends FileDownloadConnectListener imp
         }
     }
 
+    /**
+     * 断开连接
+     */
     @Override
     public void disconnected() {
 
+        /**
+         * 失去连接
+         */
         if (getConnectStatus() == DownloadServiceConnectChangedEvent.ConnectStatus.lost) {
 
             final IQueuesHandler queueHandler = FileDownloader.getImpl().getQueuesHandler();

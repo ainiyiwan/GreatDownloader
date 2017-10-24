@@ -23,16 +23,20 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Executors are used in entire FileDownloader internal for managing different threads.
+ * 已完成
+ * Executors are used in entire（全部的，整个的；全体的） FileDownloader internal for managing different threads.
  * <p>
- * All thread pools in FileDownloader will comply with:
+ * All thread pools in FileDownloader will comply（ 遵守；顺从，遵从；答应） with:
  * <p>
  * The default thread count is 0, and the maximum pool size is {@code nThreads}; When there are less
  * than {@code nThreads} threads running, a new thread is created to handle the request, but when it
- * turn to idle and the interval time of waiting for new task more than {@code DEFAULT_IDLE_SECOND}
+ * turn to idle（闲置的；懒惰的；停顿的） and the interval（间隔；间距；幕间休息） time of waiting for new task more than {@code DEFAULT_IDLE_SECOND}
  * second, the thread will be terminate to reduce the cost of resources.
  */
 public class FileDownloadExecutors {
+    /**
+     * 默认等待时间
+     */
     private final static int DEFAULT_IDLE_SECOND = 5;
 
     public static ThreadPoolExecutor newDefaultThreadPool(int nThreads, String prefix) {
@@ -63,6 +67,9 @@ public class FileDownloadExecutors {
         public Thread newThread(Runnable r) {
             Thread t = new Thread(group, r, namePrefix + threadNumber.getAndIncrement(), 0);
 
+            /**
+             * daemon 守护进程；后台程序
+             */
             if (t.isDaemon())
                 t.setDaemon(false);
             if (t.getPriority() != Thread.NORM_PRIORITY)

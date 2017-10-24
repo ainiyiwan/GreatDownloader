@@ -53,6 +53,9 @@ public class FileDownloadService extends Service {
 
         final FileDownloadManager manager = new FileDownloadManager();
 
+        /**
+         * 默认false 运行在独立的进程中
+         */
         if (FileDownloadProperties.getImpl().PROCESS_NON_SEPARATE) {
             handler = new FDServiceSharedHandler(new WeakReference<>(this), manager);
         } else {

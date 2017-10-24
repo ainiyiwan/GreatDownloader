@@ -33,6 +33,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import java.util.List;
 
 /**
+ * 已完成
  * The downloading manager in FileDownloadService, which is used to control all download-inflow.
  * <p/>
  * Handling real {@link #start(String, String, boolean, int, int, int, boolean, FileDownloadHeader,
@@ -52,6 +53,7 @@ class FileDownloadManager implements IThreadPoolMonitor {
         this.mThreadPool = new FileDownloadThreadPool(holder.getMaxNetworkThreadCount());
     }
 
+    // TODO: 2017/10/24 没看明白 需要心平气和的时候多卡几遍
     // synchronize for safe: check downloading, check resume, update data, execute runnable
     public synchronized void start(final String url, final String path, final boolean pathAsDirectory,
                                    final int callbackProgressTimes,
@@ -212,6 +214,7 @@ class FileDownloadManager implements IThreadPoolMonitor {
     }
 
     /**
+     * 暂停所有线程
      * Pause all running task
      */
     public void pauseAll() {
@@ -225,6 +228,7 @@ class FileDownloadManager implements IThreadPoolMonitor {
             pause(id);
         }
     }
+
 
     public long getSoFar(final int id) {
         final FileDownloadModel model = mDatabase.find(id);
@@ -263,14 +267,29 @@ class FileDownloadManager implements IThreadPoolMonitor {
         return model.getStatus();
     }
 
+    /**
+     * 线程池是否闲置
+     * @return
+     */
     public boolean isIdle() {
         return mThreadPool.exactSize() <= 0;
     }
 
+
+    /**
+     * 设置最大并行下载的数目(网络下载线程数), [1,12]
+     * @param count
+     * @return
+     */
     public synchronized boolean setMaxNetworkThreadCount(int count) {
         return mThreadPool.setMaxNetworkThreadCount(count);
     }
 
+    /**
+     * 是否正在下载
+     * @param model
+     * @return
+     */
     @Override
     public boolean isDownloading(FileDownloadModel model) {
         if (model == null) {
@@ -314,10 +333,17 @@ class FileDownloadManager implements IThreadPoolMonitor {
         return isDownloading;
     }
 
+    /**
+     * 找到相同缓存路径下的任务
+     * @param tempFilePath
+     * @param excludeId
+     * @return
+     */
     @Override
     public int findRunningTaskIdBySameTempPath(String tempFilePath, int excludeId) {
         return mThreadPool.findRunningTaskIdBySameTempPath(tempFilePath, excludeId);
     }
+
 
     public boolean clearTaskData(int id) {
         if (id == 0) {

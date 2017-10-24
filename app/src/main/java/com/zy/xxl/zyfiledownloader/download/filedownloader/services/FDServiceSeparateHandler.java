@@ -31,6 +31,7 @@ import com.zy.xxl.zyfiledownloader.i.IFileDownloadIPCService;
 import java.lang.ref.WeakReference;
 
 /**
+ * 已完成
  * For handling the case of the FileDownloadService runs in separate `:filedownloader` process.
  */
 public class FDServiceSeparateHandler extends IFileDownloadIPCService.Stub

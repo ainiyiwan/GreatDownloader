@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 /**
+ * 已完成
  * The handler for handing the case of the connect with the downloader service is lost when tasks is
  * running.
  */

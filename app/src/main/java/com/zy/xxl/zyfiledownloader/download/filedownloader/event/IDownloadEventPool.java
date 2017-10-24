@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader.event;
 
 /**
+ * 已完成
  * The event pool to store the event and listener, and drive them.
  *
  * @see IDownloadEvent

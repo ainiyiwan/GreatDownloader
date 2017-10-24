@@ -23,6 +23,8 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import java.io.IOException;
 
 /**
+ * 已完成
+ * 磁盘空间不足异常
  * Throw this exception, when the downloading file is too large to store, in other words,
  * the free space is less than the length of the downloading file.
  * <p/>
@@ -31,7 +33,7 @@ import java.io.IOException;
  * {@link FileDownloadUtils#createOutputStream(String)}
  * When the resource is chunked, we will handle this problem when the free space is not enough to
  * store the following chunk:
- * {@link DownloadStatusCallback#exFiltrate(Exception)}
+ * {@link com.zy.xxl.zyfiledownloader.download.filedownloader.download.DownloadStatusCallback#exFiltrate(Exception)}
  */
 @SuppressWarnings("SameParameterValue")
 public class FileDownloadOutOfSpaceException extends IOException {

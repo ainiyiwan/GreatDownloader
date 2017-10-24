@@ -31,6 +31,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
+ * 已完成
  * The download task hunter.
  * 任务猎人
  */
@@ -124,6 +125,10 @@ public class DownloadTaskHunter implements ITaskHunter, ITaskHunter.IStarter, IT
         return MessageSnapshotTaker.catchException(getId(), getSofarBytes(), cause);
     }
 
+    /**
+     * 更新消息状态
+     * @param snapshot
+     */
     private void update(final MessageSnapshot snapshot) {
         final BaseDownloadTask task = mTask.getRunningTask().getOrigin();
         final byte status = snapshot.getStatus();

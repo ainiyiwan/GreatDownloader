@@ -50,23 +50,25 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
+ * 已完成
  * You can use this to launch downloading, on here the download will be launched separate following
  * steps:
  * <p/>
  * step 1. create the first connection
  *          ( this first connection is used for:
- *                  1. checkup the saved etag is overdue
+ *                  1. checkup the saved etag is overdue（过期的；迟到的；未兑的）
  *                  2. checkup whether the partial-accept is supported
  *                  3. checkup whether the current connection is chunked. )
  *
  * step 2. if the saved etag is overdue -> jump to step 1 to checkup whether the partial-accept is supported.
  * step 3. if (NOT chunked) & partial-accept & output stream support-seek:
- *              create multiple {@link DownloadTask} to download.
+ *              create multiple {@link com.zy.xxl.zyfiledownloader.download.filedownloader.DownloadTask} to download.
  *         else:
  *              reuse the first connection and use {@link FetchDataTask} to fetch data from the connection.
  * <p/>
  * We use {@link DownloadStatusCallback} to handle all events sync to DB/filesystem and callback to user.
  */
+// TODO: 2017/10/24  一知半解 感觉还是应用的时候带着问题来看会学到更多 先这样吧
 public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
 
     private final DownloadStatusCallback statusCallback;
@@ -84,9 +86,14 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
     private int validRetryTimes;
 
     /**
-     * None of the ranges in the request's Range header field overlap the current extent of the
+     * None of the ranges in the request's Range header field overlap（重叠；重复） the current extent of the
      * selected resource or that the set of ranges requested has been rejected due to invalid
-     * ranges or an excessive request of small or overlapping ranges.
+     * ranges or an excessive（过多的，极度的；过分的） request of small or overlapping ranges.
+     *
+     * 416 Requested Range Not Satisfiable
+     如果请求中包含了 Range 请求头，并且 Range 中指定的任何数据范围都与当前资源的可用范围不重合，同时请求中又没有定义 If-Range 请求头，那么服务器就应当返回416状态码。
+     假如 Range 使用的是字节范围，那么这种情况就是指请求指定的所有数据范围的首字节位置都超过了当前资源的长度。服务器也应当在返回416状态码的同时，
+     包含一个 Content-Range 实体头，用以指明当前资源的长度。这个响应也被禁止使用 multipart/byteranges 作为其 Content-Type。
      */
     private static final int HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = 416;
     private static final int TOTAL_VALUE_IN_CHUNKED_RESOURCE = -1;
@@ -353,6 +360,10 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         }
     }
 
+    /**
+     * 是否支持同时下载多个任务
+     * @return
+     */
     private boolean isMultiConnectionAvailable() {
         //noinspection SimplifiableIfStatement
         if (isResumeAvailableOnDB && model.getConnectionCount() <= 1) {
@@ -366,6 +377,11 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         return DEFAULT_CONNECTION_COUNT;
     }
 
+    /**
+     * 建立第一个连接
+     * @param connectionOnDBList
+     * @return
+     */
     private ConnectionProfile buildFirstConnectProfile(List<ConnectionModel> connectionOnDBList) {
         // check resume available
         final long offset;
@@ -410,6 +426,15 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         return new ConnectionProfile(0, offset, 0, model.getTotal() - offset);
     }
 
+
+    /**
+     * step 1. create the first connection
+     *          ( this first connection is used for:
+     *                  1. checkup the saved etag is overdue（过期的；迟到的；未兑的）
+     *                  2. checkup whether the partial-accept is supported
+     *                  3. checkup whether the current connection is chunked. )
+     *
+     */
     private void handleFirstConnected(Map<String, List<String>> requestHeader,
                                       ConnectTask connectTask, FileDownloadConnection connection)
             throws IOException, RetryDirectly, IllegalArgumentException {
@@ -522,6 +547,13 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         }
     }
 
+    /**
+     * 获取单个下载
+     * @param firstConnectionProfile
+     * @param connection
+     * @throws IOException
+     * @throws IllegalAccessException
+     */
     private void fetchWithSingleConnection(final ConnectionProfile firstConnectionProfile,
                                            FileDownloadConnection connection)
             throws IOException, IllegalAccessException {
@@ -556,6 +588,12 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         }
     }
 
+    /**
+     * 从断点开始多线程下载
+     * @param connectionCount
+     * @param connectionModelList
+     * @throws InterruptedException
+     */
     private void fetchWithMultipleConnectionFromResume(final int connectionCount, final List<ConnectionModel> connectionModelList) throws InterruptedException {
         if (connectionCount <= 1 || connectionModelList.size() != connectionCount)
             throw new IllegalArgumentException();
@@ -563,6 +601,12 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         fetchWithMultipleConnection(connectionModelList, model.getTotal());
     }
 
+    /**
+     * 从开始进行多线程下载
+     * @param totalLength
+     * @param connectionCount
+     * @throws InterruptedException
+     */
     private void fetchWithMultipleConnectionFromBeginning(final long totalLength, final int connectionCount) throws InterruptedException {
         long startOffset = 0;
         final long eachRegion = totalLength / connectionCount;
@@ -600,6 +644,12 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
     }
 
 
+    /**
+     * 多任务下载
+     * @param connectionModelList
+     * @param totalLength
+     * @throws InterruptedException
+     */
     private void fetchWithMultipleConnection(final List<ConnectionModel> connectionModelList, final long totalLength) throws InterruptedException {
         final int id = model.getId();
         final String etag = model.getETag();
@@ -693,6 +743,13 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         }
     }
 
+    /**
+     * 预申请空间
+     * @param contentLength
+     * @param path
+     * @throws IOException
+     * @throws IllegalAccessException
+     */
     private void handlePreAllocate(long contentLength, String path)
             throws IOException, IllegalAccessException {
 
@@ -828,6 +885,14 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         database.updateProgress(model.getId(), model.getSoFar());
     }
 
+    /**
+     * step 1. create the first connection
+     *          ( this first connection is used for:
+     *                  1. checkup the saved etag is overdue（过期的；迟到的；未兑的）
+     *                  2. checkup whether the partial-accept is supported
+     *                  3. checkup whether the current connection is chunked. )
+     * @throws FileDownloadGiveUpRetryException
+     */
     private void checkupBeforeConnect()
             throws FileDownloadGiveUpRetryException {
 
@@ -848,6 +913,11 @@ public class DownloadLaunchRunnable implements Runnable, ProcessCallback {
         }
     }
 
+    /**
+     * 取数据之前检查
+     * @throws RetryDirectly
+     * @throws DiscardSafely
+     */
     private void checkupBeforeFetch() throws RetryDirectly, DiscardSafely {
         final int id = model.getId();
 

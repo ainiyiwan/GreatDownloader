@@ -133,6 +133,12 @@ public class FileDownloadStatus {
         return status > 0;
     }
 
+    /**
+     * 保持领先地位 意思应该是是否active
+     * @param status
+     * @param nextStatus
+     * @return
+     */
     public static boolean isKeepAhead(final int status, final int nextStatus) {
         if (status != progress && status != retry && status == nextStatus) {
             return false;
@@ -199,6 +205,12 @@ public class FileDownloadStatus {
 
     }
 
+    /**
+     * 保持流动
+     * @param status
+     * @param nextStatus
+     * @return
+     */
     public static boolean isKeepFlow(final int status, final int nextStatus) {
         if (status != progress && status != retry && status == nextStatus) {
             return false;
@@ -273,6 +285,11 @@ public class FileDownloadStatus {
 
     }
 
+    /**
+     * 是否正处于要完成的状态
+     * @param task
+     * @return
+     */
     public static boolean isMoreLikelyCompleted(BaseDownloadTask task) {
         return task.getStatus() == INVALID_STATUS || task.getStatus() == progress;
     }

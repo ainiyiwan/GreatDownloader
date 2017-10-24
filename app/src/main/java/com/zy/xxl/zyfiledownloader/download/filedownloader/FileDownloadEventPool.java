@@ -20,6 +20,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.event.DownloadEventPoolImpl;
 
 /**
+ * 已完成
  * The event pool.
  */
 public class FileDownloadEventPool extends DownloadEventPoolImpl {

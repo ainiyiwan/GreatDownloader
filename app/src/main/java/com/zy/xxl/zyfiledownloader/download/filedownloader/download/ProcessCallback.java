@@ -17,7 +17,9 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader.download;
 
 /**
+ * 已完成
  * The process event callbacks.
+ * 下载过程回调
  */
 public interface ProcessCallback {
 

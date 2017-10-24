@@ -20,6 +20,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader.event;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadLog;
 
 /**
+ * 已完成
  * An atom event.
  */
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
