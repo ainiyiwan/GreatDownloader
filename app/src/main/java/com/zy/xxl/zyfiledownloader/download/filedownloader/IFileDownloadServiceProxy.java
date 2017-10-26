@@ -22,6 +22,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadHea
 
 
 /**
+ * 已完成
  * The interface to access the FileDownloadService.
  */
 public interface IFileDownloadServiceProxy {

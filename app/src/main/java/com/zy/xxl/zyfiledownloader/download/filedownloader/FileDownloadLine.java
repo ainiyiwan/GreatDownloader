@@ -24,6 +24,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadSta
 import java.io.File;
 
 /**
+ * 已完成
  * The FileDownload synchronous line.
  *
  * @see FileDownloader#insureServiceBind()

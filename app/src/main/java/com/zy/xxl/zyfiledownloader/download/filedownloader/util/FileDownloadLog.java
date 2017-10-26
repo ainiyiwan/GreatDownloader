@@ -19,6 +19,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader.util;
 import android.util.Log;
 
 /**
+ * 已完成
  * The log printer help to control all logs in FileDownloader.
  * <p>
  * If you want to print all priority FileDownloader logs, please set true to {@link #NEED_LOG},

@@ -19,7 +19,8 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 import android.app.Notification;
 
 /**
- * The FileDownloader asynchronous line.
+ * 已完成
+ * The FileDownloader asynchronous（异步的；不同时的；不同期的） line.
  */
 
 public class FileDownloadLineAsync {

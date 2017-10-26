@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
+ * 已完成
  * You can customize the FileDownloader Engine by add filedownloader.properties file in your assets
  * folder. Example: /demo/src/main/assets/filedownloader.properties
  * <p/>
@@ -110,7 +111,7 @@ import java.util.Properties;
  * If you want to receive such broadcast, you also need to register receiver with
  * 'filedownloader.intent.action.completed' action name on 'AndroidManifest.xml'.
  * <p>
- * You can use {@link FileDownloadBroadcastHandler} class to parse the received intent.
+ * You can use {@link com.zy.xxl.zyfiledownloader.download.filedownloader.services.FileDownloadBroadcastHandler} class to parse the received intent.
  */
 public class FileDownloadProperties {
 

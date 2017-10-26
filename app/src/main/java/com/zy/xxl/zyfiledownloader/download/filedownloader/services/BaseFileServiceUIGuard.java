@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * 已完成
  * A UI-Guard in Main-Process for IPC, which is the only Object can access the other process in
  * Main-Process with Binder.
  */
@@ -90,6 +91,7 @@ public abstract class BaseFileServiceUIGuard<CALLBACK extends Binder, INTERFACE 
 
     }
 
+    //Service状态为 lost
     @Override
     public void onServiceDisconnected(ComponentName name) {
         if (FileDownloadLog.NEED_LOG) {
@@ -157,6 +159,11 @@ public abstract class BaseFileServiceUIGuard<CALLBACK extends Binder, INTERFACE 
         context.startService(i);
     }
 
+    /**
+     * Service 状态为disconnected
+     * @see  DownloadServiceConnectChangedEvent.ConnectStatus
+     * @param context
+     */
     @Override
     public void unbindByContext(final Context context) {
         if (!BIND_CONTEXTS.contains(context)) {

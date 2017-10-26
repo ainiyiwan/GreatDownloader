@@ -24,11 +24,12 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadProp
 
 
 /**
+ * 已完成
  * FileDownloadService的代理类
  * The proxy used for executing the action from FileDownloader to FileDownloadService.
  *
- * @see FileDownloadServiceSharedTransmit In case of FileDownloadService runs in the main process.
- * @see FileDownloadServiceUIGuard In case of FileDownloadService runs in the separate `:filedownloader` process.
+ * @see FileDownloadServiceSharedTransmit In case of FileDownloadService runs in the main process. 运行在主进程
+ * @see FileDownloadServiceUIGuard In case of FileDownloadService runs in the separate `:filedownloader` process. 运行在独立进程
  * <p/>
  * You can add a command `process.non-separate=true` to `/filedownloader.properties` to make the
  * FileDownloadService runs in the main process, and by default the FileDownloadService runs in the
@@ -129,6 +130,8 @@ public class FileDownloadServiceProxy implements IFileDownloadServiceProxy {
         handler.unbindByContext(context);
     }
 
+
+    //设置为前台服务
     @Override
     public void startForeground(int notificationId, Notification notification) {
         handler.startForeground(notificationId, notification);

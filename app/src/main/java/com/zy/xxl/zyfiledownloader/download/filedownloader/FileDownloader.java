@@ -727,9 +727,10 @@ public class FileDownloader {
     }
 
     /**
+     * 判断是否绑定了Service
      * If the FileDownloader service is not started and connected, FileDownloader will try to start
      * it and try to bind with it. The current thread will also be blocked until the FileDownloader
-     * service is started and a connection is established, and then the request you
+     * service is started and a connection is established（确定的；已制定的，已建立的）, and then the request you
      * invoke in {@link FileDownloadLine} will be executed.
      * <p>
      * If the FileDownloader service has been started and connected, the request you invoke in

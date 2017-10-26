@@ -32,6 +32,8 @@ import com.zy.xxl.zyfiledownloader.i.IFileDownloadIPCService;
 
 
 /**
+ * 已完成
+ * 唯一的与独立进程交互的类
  * The UI-Guard for FileDownloader-Process.
  * <p/>
  * The only Class can access the FileDownload-Process, and the only Class can receive the event from

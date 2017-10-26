@@ -21,11 +21,13 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadSta
 
 
 /**
+ * 已完成
+ * 这个类用来处理Service没有连接上
  * The helper for handling the case of requesting do something in the downloader service but the
  * downloader service isn't connected yet.
  *
- * @see FileDownloader#insureServiceBind()
- * @see FileDownloader#insureServiceBindAsync()
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.FileDownloader#insureServiceBind()
+ * @see com.zy.xxl.zyfiledownloader.download.filedownloader.FileDownloader#insureServiceBindAsync()
  */
 public class DownloadServiceNotConnectedHelper {
 
