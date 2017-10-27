@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 已完成
  * Storing all tasks in processing in the Main-Process.
  */
 @SuppressWarnings("UnusedReturnValue")
@@ -82,6 +83,11 @@ public class FileDownloadList {
         return null;
     }
 
+    /**
+     * 获取到服务的队列
+     * @param id
+     * @return
+     */
     List<BaseDownloadTask.IRunningTask> getReceiveServiceTaskList(final int id){
         final List<BaseDownloadTask.IRunningTask> list = new ArrayList<>();
         synchronized (this.mList) {
@@ -159,7 +165,7 @@ public class FileDownloadList {
     }
 
     /**
-     * Divert all data in list 2 destination list
+     * Divert（转移；使…欢娱；使…转向） all data in list 2 destination list （Duplicate(复制；使加倍)）
      */
     void divertAndIgnoreDuplicate(@SuppressWarnings("SameParameterValue") final List<BaseDownloadTask.IRunningTask>
                                           destination) {
@@ -231,7 +237,7 @@ public class FileDownloadList {
     }
 
     /**
-     *
+     *  将任务加入队列
      * This method generally used for enqueuing the task which will be assembled（组装，集合） by a queue.
      *
      * @see BaseDownloadTask.InQueueTask#enqueue()

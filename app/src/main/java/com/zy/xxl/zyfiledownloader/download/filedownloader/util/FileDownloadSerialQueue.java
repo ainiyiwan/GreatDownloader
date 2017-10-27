@@ -29,6 +29,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * 已完成
  * The serial queue, what used to dynamically increase tasks, and tasks in the queue will
  * automatically start download one by one.
  */

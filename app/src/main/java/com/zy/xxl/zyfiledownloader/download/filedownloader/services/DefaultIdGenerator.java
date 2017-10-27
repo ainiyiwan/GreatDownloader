@@ -22,6 +22,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import static com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtils.formatString;
 
 /**
+ * 已完成
  * The default id generator.
  */
 

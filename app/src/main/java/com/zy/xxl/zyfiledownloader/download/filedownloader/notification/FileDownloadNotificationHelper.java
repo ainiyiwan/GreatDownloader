@@ -22,6 +22,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadSta
 
 
 /**
+ * 已完成
  * The helper for notifications with downloading tasks. You also can think this is the notifications
  * manager.
  *

@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 /**
+ * 已完成
  * Simplify the {@link FileDownloadListener}. 下载状态监听
  */
 public class FileDownloadSampleListener extends FileDownloadListener {

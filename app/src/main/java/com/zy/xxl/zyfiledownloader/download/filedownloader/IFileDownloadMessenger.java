@@ -21,6 +21,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.message.MessageSnapsh
 import com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadModel;
 
 /**
+ * 已完成
  * @see com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDownloadStatus
  */
 // TODO: 2017/10/23 整个类的方法 以及它指向的需要阅读的类 估计这个类会延续到最后

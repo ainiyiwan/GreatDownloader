@@ -25,6 +25,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 
 
 /**
+ * 已完成
  * The handler broadcast from filedownloader.
  */
 public class FileDownloadBroadcastHandler {

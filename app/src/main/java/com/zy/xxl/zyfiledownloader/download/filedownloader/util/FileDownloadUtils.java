@@ -47,6 +47,7 @@ import static com.zy.xxl.zyfiledownloader.download.filedownloader.model.FileDown
 
 
 /**
+ * 已完成
  * 伟大的工具类
  * The utils for FileDownloader.
  */
@@ -188,7 +189,7 @@ public class FileDownloadUtils {
      * The path is used as the default directory in the case of the task without set path.
      *
      * @param path default root path for save download file.
-     * @see com.liulishuo.filedownloader.BaseDownloadTask#setPath(String, boolean)
+     * @see com.zy.xxl.zyfiledownloader.download.filedownloader.BaseDownloadTask#setPath(String, boolean)
      */
     public static void setDefaultSaveRootPath(final String path) {
         DEFAULT_SAVE_ROOT_PATH = path;

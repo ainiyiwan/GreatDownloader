@@ -24,6 +24,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.FileDownloadListener;
 import junit.framework.Assert;
 
 /**
+ * 已完成
  * The listener of the notification with the task.
  *
  * @see FileDownloadNotificationHelper

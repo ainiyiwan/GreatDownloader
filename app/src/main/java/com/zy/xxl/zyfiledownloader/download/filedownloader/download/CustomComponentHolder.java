@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
+ * 已完成
  * 自定义组件
  * The holder for supported custom components.
  */

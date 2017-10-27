@@ -24,6 +24,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadHelp
 
 
 /**
+ * 已完成
  * An atom notification item which identify with a downloading task, they have the same downloading
  * Id.
  *

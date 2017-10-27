@@ -29,6 +29,7 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * 已完成
  * The messenger for sending messages to  {@link FileDownloadListener}.
  * 作为一个信使想FileDownloadListener发送信息
  * @see IFileDownloadMessenger

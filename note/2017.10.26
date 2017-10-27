@@ -1,0 +1,29 @@
+1 BaseNotificationItem（已完成）
+2 FileDownloadNotificationHelper（已完成）
+3 FileDownloadNotificationListener（已完成）
+4 FileDownloadList（已完成）
+5 MessageSnapshotGate（已完成）
+6 FileDownloadStatus（已完成）
+7 CustomComponentHolder（已完成）
+8 DownloadEventSampleListener（已完成）
+9 FileDownloadHttpException（已完成）
+10 PathConflictException（已完成）
+11 FileDownloadTaskAtom（已完成）
+12 DefaultIdGenerator（已完成）
+13 DownloadMgrInitialParams（已完成）
+14 FileDownloadBroadcastHandler（已完成）
+15 FileDownloadService（已完成）
+16 FileDownloadSerialQueue（已完成）
+17 BaseDownloadTask（已完成）
+18 DownloadSpeedMonitor（已完成）
+19 FileDownloadLargeFileListener（已完成）
+20 FileDownloadMessageStation（已完成）
+21 FileDownloadMessenger（已完成）
+22 FileDownloadQueueSet（已完成）
+23 FileDownloadSampleListener（已完成）
+24 FileDownloadTaskLauncher（已完成）
+25 IFileDownloadMessenger（已完成）
+26 FileDownloadUtils（已完成）
+
+
+全部完结

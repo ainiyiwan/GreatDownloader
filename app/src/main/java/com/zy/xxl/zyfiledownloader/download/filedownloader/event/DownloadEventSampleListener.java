@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader.event;
 
 /**
+ * 已完成
  * Simplify the listener architecture.
  */
 public class DownloadEventSampleListener extends IDownloadListener {

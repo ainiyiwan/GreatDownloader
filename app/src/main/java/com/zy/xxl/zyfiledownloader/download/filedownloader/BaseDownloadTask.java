@@ -18,6 +18,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 
 /**
+ * 已完成
  * An atom download task.
  *
  * @see FileDownloader
@@ -636,6 +637,7 @@ public interface BaseDownloadTask {
         boolean isMarkedAdded2List();
 
         /**
+         * 标记任务已经加入下载队列
          * Mark the task has already added to the downloading list.
          */
         void markAdded2List();

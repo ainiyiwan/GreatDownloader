@@ -25,11 +25,19 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadLog;
 import java.util.List;
 
 /**
- * The message snapshot gate beyond the downloader service.
+ * 已完成
+ * The message snapshot gate beyond（超过；越过；那一边；在...较远的一边） the downloader service.
  */
 
 public class MessageSnapshotGate implements MessageSnapshotFlow.MessageReceiver {
 
+    /**
+     * transmit（传输；传播；发射；传达；遗传）
+     * 传输消息
+     * @param taskList
+     * @param snapshot
+     * @return
+     */
     private boolean transmitMessage(List<BaseDownloadTask.IRunningTask> taskList,
                                     MessageSnapshot snapshot) {
 

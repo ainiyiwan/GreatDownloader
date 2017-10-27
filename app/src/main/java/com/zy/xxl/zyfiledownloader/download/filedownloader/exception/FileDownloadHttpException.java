@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 已完成
  * Throw this exception, when the HTTP status code is not {@link java.net.HttpURLConnection#HTTP_OK},
  * and not {@link java.net.HttpURLConnection#HTTP_PARTIAL} either.
  */

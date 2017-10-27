@@ -26,6 +26,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadProp
 import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtils;
 
 /**
+ * 已完成
  * Params in this class is used in the downloading manager, and would be used for initialize the
  * download manager in the process the downloader service settled on.
  * 下载初始化组件的管理类

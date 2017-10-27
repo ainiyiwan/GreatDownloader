@@ -23,7 +23,8 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import java.util.List;
 
 /**
- * The Minimal unit for a task.
+ * 已完成
+ * The Minimal（最低的；最小限度的） unit for a task.
  * <p/>
  * Used for telling the FileDownloader Engine that a task was downloaded by the other ways.
  *

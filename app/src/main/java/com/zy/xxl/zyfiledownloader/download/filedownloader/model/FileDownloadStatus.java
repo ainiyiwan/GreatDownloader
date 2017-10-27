@@ -20,6 +20,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader.model;
 import com.zy.xxl.zyfiledownloader.download.filedownloader.BaseDownloadTask;
 
 /**
+ * 已完成
  * The downloading status.
  *下载的状态值
  * @see com.zy.xxl.zyfiledownloader.download.filedownloader.IFileDownloadMessenger

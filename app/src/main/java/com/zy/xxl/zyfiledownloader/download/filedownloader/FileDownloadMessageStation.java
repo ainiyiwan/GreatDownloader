@@ -27,6 +27,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * 已完成
  * The message station to transfer task events to {@link FileDownloadListener}.
  * 消息管理中心 可以设置消息发送时间
  */

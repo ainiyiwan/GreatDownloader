@@ -27,6 +27,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
+ * 已完成
  * The global launcher for launching tasks.
  */
 class FileDownloadTaskLauncher {

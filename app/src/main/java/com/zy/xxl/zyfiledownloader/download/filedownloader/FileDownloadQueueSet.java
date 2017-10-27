@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 已完成
  * The helper for start and config the task queue simply and quickly.
  *
  * @see FileDownloader#start(FileDownloadListener, boolean)

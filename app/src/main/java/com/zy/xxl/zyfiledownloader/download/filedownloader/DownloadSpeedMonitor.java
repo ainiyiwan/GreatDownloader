@@ -19,6 +19,7 @@ package com.zy.xxl.zyfiledownloader.download.filedownloader;
 import android.os.SystemClock;
 
 /**
+ * 已完成
  * The downloading speed monitor.
  */
 

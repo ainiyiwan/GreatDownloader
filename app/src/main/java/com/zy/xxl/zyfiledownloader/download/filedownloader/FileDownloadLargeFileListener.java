@@ -17,6 +17,7 @@
 package com.zy.xxl.zyfiledownloader.download.filedownloader;
 
 /**
+ * 已完成
  * The listener for listening the downloading status changing.
  * <p>
  * This listener will be used when the file size of the task is greater than 1.99G.

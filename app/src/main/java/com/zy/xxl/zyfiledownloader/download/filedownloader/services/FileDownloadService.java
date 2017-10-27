@@ -28,6 +28,7 @@ import com.zy.xxl.zyfiledownloader.download.filedownloader.util.FileDownloadUtil
 import java.lang.ref.WeakReference;
 
 /**
+ * 已完成
  * The service is running for FileDownloader.
  * <p/>
  * You can add a command `process.non-separate=true` to the `filedownloader.properties` asset file

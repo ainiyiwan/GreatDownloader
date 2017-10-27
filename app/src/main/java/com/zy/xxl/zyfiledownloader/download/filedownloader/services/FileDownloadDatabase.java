@@ -187,7 +187,7 @@ public interface FileDownloadDatabase {
     Maintainer maintainer();
 
     /**
-     * the maintainer for the database, this maintainer will be used when the database is initializing.
+     * the maintainer（维修工；保持器） for the database, this maintainer will be used when the database is initializing.
      */
     @SuppressWarnings("EmptyMethod")
     interface Maintainer extends Iterable<FileDownloadModel> {
